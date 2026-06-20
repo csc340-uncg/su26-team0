@@ -1,7 +1,7 @@
 ## Title
-> Your project title
+> FitMatch
 
 ## Team Members
-> Team Member #1 name
+> Al Beback
 
 > Team Member #2 name
