@@ -1,3 +1,4 @@
+# FitMatch - Personal trainers matched to goals and constraints
 ## Title
 > FitMatch
 
