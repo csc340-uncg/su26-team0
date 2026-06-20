@@ -2,6 +2,6 @@
 > FitMatch
 
 ## Team Members
-> Al Beback
+> Alice Beback
 
-> Team Member #2 name
+> Pete Czar
