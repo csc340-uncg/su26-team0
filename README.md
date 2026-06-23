@@ -3,9 +3,9 @@
 > FitMatch
 
 ## Team Members
-> Joany R. Cache
+> Alice W. Beback
 
-> Al Beback
+> Joany R. Cache
 
 ## Description
 FitMatch is a personalized trainer‑matching platform designed to help adults find certified fitness professionals who align with their goals, schedule, and coaching preferences. The system supports customers seeking structured fitness or rehabilitation guidance, as well as providers (trainers and wellness coaches) who want to offer tailored training services. FitMatch streamlines the process of discovering trainers, booking sessions, tracking progress, and exchanging feedback, all within a clean, user‑centered interface.
