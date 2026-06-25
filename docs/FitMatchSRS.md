@@ -1,8 +1,8 @@
 
-# Requirements – Starter Template
+# Requirements – FitMatch
 
-**Project Name:** Your App Name \
-**Team:** Names and roles \
+**Project Name:** FitMatch \
+**Team:** Alice Beback - Provider, Joany Cache - Customer \
 **Course:** CSC 340\
 **Version:** 1.0\
 **Date:** 2026-06-25
@@ -10,7 +10,7 @@
 ---
 
 ## 1. Overview
-**Vision.** One or two sentences: who this is for, the core problem, and the outcome.
+**Vision.** FitMatch is a personalized trainer‑matching platform designed to help adults find certified fitness professionals who align with their goals, schedule, and coaching preferences. The system supports customers seeking structured fitness or rehabilitation guidance, as well as providers (trainers and wellness coaches) who want to offer tailored training services. 
 
 **Glossary** Terms used in the project
 - **Term 1:** description.
