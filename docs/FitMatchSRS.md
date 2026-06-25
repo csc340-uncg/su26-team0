@@ -42,7 +42,7 @@
 ## 2. Functional Requirements (User Stories)
 
 ### 2.1 Customer Stories
-- **US‑1 — Register & manage profile**
+- **US‑1 - Register & manage profile**
 
   _Story:_ As a customer, I want to create a fitness profile, so that trainers can understand my goals and constraints.
 
@@ -54,7 +54,7 @@
     Then I should be successfully registered and logged in
   ```
 
-- **US‑2 — Browse trainers by goal category**
+- **US‑2 - Browse trainers by goal category**
 
   _Story:_ As a customer, I want to browse trainers by goal category so that I can quickly find relevant matches.
 
@@ -66,7 +66,7 @@
     Then I should see a list of trainers who specialize in that category
   ```
 
-- **US-3 — Book a training session**
+- **US-3 - Book a training session**
 
   _Story:_ As a customer, I want to book a training session with a trainer so that I can receive personalized guidance.
 
@@ -92,7 +92,7 @@
 
 ### 2.2 Provider (Trainer) Stories
 
-- **US-5 — Create and update trainer profile**
+- **US-5 - Create and update trainer profile**
   _Story:_ As a trainer, I want to create and update my profile, so that I can attract clients.
 
   _Acceptance:_
@@ -104,7 +104,7 @@
     And the profile should be visible to customers
   ```
 
-- **US-6 — Define services and pricing**
+- **US-6 - Define services and pricing**
 
   _Story:_ As a trainer, I want to define my services and pricing, so that customers understand my offerings.
 
@@ -116,7 +116,7 @@
     Then the services should be saved and visible to customers
   ```
 
-- **US-7 — Respond to reviews**
+- **US-7 - Respond to reviews**
 
   _Story:_ As a trainer, I want to respond to reviews, so that I can engage with clients.
 
@@ -157,7 +157,7 @@
 
 ## 5. Milestones (course‑aligned)
 - **M1 Requirements** — this file + stories opened as issues.
-- **M2 High‑fidelity prototype** — core customer/provider flows fully interactive.
+- **M2 High‑fidelity prototype** — core customer/provider UI flows fully interactive.
 - **M3 Design** — architecture, schema, API outline.
 - **M4 Backend API** — key endpoints + tests.
 - **M5 Increment** — ≥2 use cases end‑to‑end.
