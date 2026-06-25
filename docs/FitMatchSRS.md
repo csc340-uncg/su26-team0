@@ -45,6 +45,7 @@
 - **US‑1 — Register & manage profile**
 
   _Story:_ As a customer, I want to create a fitness profile, so that trainers can understand my goals and constraints.
+
   _Acceptance:_
   ```gherkin
   Scenario: Register with valid credentials
@@ -56,6 +57,7 @@
 - **US‑2 — Browse trainers by goal category**
 
   _Story:_ As a customer, I want to browse trainers by goal category so that I can quickly find relevant matches.
+
   _Acceptance:_
   ```gherkin
   Scenario: Browse trainers by goal category
@@ -67,6 +69,7 @@
 - **US-3 — Book a training session**
 
   _Story:_ As a customer, I want to book a training session with a trainer so that I can receive personalized guidance.
+
   _Acceptance:_
   ```gherkin
   Scenario: Book a training session
@@ -78,6 +81,7 @@
 - **US-4 - Write a review after a session**
 
     _Story:_ As a customer, I want to write a review after a session so that others can benefit from my experience.
+
     _Acceptance:_
   ```gherkin
     Scenario: Write a review after a session
@@ -90,6 +94,7 @@
 
 - **US-5 — Create and update trainer profile**
   _Story:_ As a trainer, I want to create and update my profile, so that I can attract clients.
+
   _Acceptance:_
   ```gherkin
   Scenario: Create and update trainer profile
@@ -102,6 +107,7 @@
 - **US-6 — Define services and pricing**
 
   _Story:_ As a trainer, I want to define my services and pricing, so that customers understand my offerings.
+
   _Acceptance:_
   ```gherkin
   Scenario: Define services and pricing
@@ -113,6 +119,7 @@
 - **US-7 — Respond to reviews**
 
   _Story:_ As a trainer, I want to respond to reviews, so that I can engage with clients.
+
   _Acceptance:_
   ```gherkin
   Scenario: Respond to reviews
@@ -124,6 +131,7 @@
 - **US-8 - View customer statistics**
 
   _Story:_ As a trainer, I want to view customer statistics so that I can tailor my coaching.
+
   _Acceptance:_
   ```gherkin
   Scenario: View customer statistics
