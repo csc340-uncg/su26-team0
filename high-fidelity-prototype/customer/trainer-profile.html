@@ -274,11 +274,8 @@
     <script>
 
       function bookSession() {
-        const date = prompt('Enter session date (YYYY-MM-DD):', '2026-06-30');
-        const time = prompt('Enter session time (HH:MM):', '18:00');
-        if (date && time) {
-          alert('Session booked with ' + trainer.name + ' on ' + date + ' at ' + time + '!');
-        }
+        alert('Session booked! Redirecting to My Sessions page.');
+        window.location.href = 'my-sessions.html';
       }
 
       function messageTrainer() {

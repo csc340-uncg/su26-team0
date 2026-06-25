@@ -208,11 +208,10 @@
 
     <script>
       function bookSession(trainerName) {
-        const date = prompt('Enter session date (YYYY-MM-DD):', '2026-06-30');
-        const time = prompt('Enter session time (HH:MM):', '18:00');
-        if (date && time) {
-          alert('Session booked with ' + trainerName + ' on ' + date + ' at ' + time);
-        }
+
+        alert('Session booked! ');
+        window.location.href = 'my-sessions.html';
+
       }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
