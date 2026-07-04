@@ -1,5 +1,6 @@
 package com.csc340.fitmatch.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +17,10 @@ public class TrainerService {
     this.trainerRepository = trainerRepository;
   }
 
+  public List<Trainer> getAllTrainers() {
+    return trainerRepository.findAll();
+  }
+
   public Optional<Trainer> findById(Long id) {
     return trainerRepository.findById(id);
   }
@@ -28,7 +33,7 @@ public class TrainerService {
     Optional<Trainer> existingTrainer = trainerRepository.findById(id);
     if (existingTrainer.isPresent()) {
       Trainer trainer = existingTrainer.get();
-      trainer.setUsername(updatedTrainer.getUsername());
+      trainer.setName(updatedTrainer.getName());
       trainer.setEmail(updatedTrainer.getEmail());
       trainer.setPassword(updatedTrainer.getPassword());
       trainer.setBiography(updatedTrainer.getBiography());
@@ -42,8 +47,8 @@ public class TrainerService {
     trainerRepository.deleteById(id);
   }
 
-  public Trainer findByUsername(String username) {
-    return trainerRepository.findByUsername(username);
+  public Trainer findByEmail(String email) {
+    return trainerRepository.findByEmail(email);
   }
 
 }

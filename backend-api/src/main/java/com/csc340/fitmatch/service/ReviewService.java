@@ -14,16 +14,12 @@ public class ReviewService {
     this.reviewRepository = reviewRepository;
   }
 
-  public boolean hasCustomerReviewedTrainer(Long customerId, Long trainerId) {
-    return reviewRepository.findByCustomerIdAndTrainerId(customerId, trainerId) != null;
-  }
-
   public Review createReview(Review review) {
     return reviewRepository.save(review);
   }
 
   public Review getReviewByCustomerAndSession(Long customerId, Long sessionId) {
-    return reviewRepository.findByCustomerIdAndTrainerId(customerId, sessionId);
+    return reviewRepository.findByCustomerIdAndSessionId(customerId, sessionId);
   }
 
 }

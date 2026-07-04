@@ -33,10 +33,53 @@ public class CustomerService {
     Optional<Customer> existingCustomer = customerRepository.findById(id);
     if (existingCustomer.isPresent()) {
       Customer customer = existingCustomer.get();
-      customer.setUsername(updatedCustomer.getUsername());
       customer.setEmail(updatedCustomer.getEmail());
       customer.setPassword(updatedCustomer.getPassword());
       customer.setAccountStatus(updatedCustomer.getAccountStatus());
+      return customerRepository.save(customer);
+    } else {
+      throw new RuntimeException("Customer not found with id: " + id);
+    }
+  }
+
+  public Customer updatePersonalInfo(Long id, Customer updatedCustomer) {
+    Optional<Customer> existingCustomer = customerRepository.findById(id);
+    if (existingCustomer.isPresent()) {
+      Customer customer = existingCustomer.get();
+      if (updatedCustomer.getName() != null) {
+        customer.setName(updatedCustomer.getName());
+      }
+      if (updatedCustomer.getPhoneNumber() != null) {
+        customer.setPhoneNumber(updatedCustomer.getPhoneNumber());
+      }
+      if (updatedCustomer.getEmail() != null) {
+        customer.setEmail(updatedCustomer.getEmail());
+      }
+      return customerRepository.save(customer);
+    } else {
+      throw new RuntimeException("Customer not found with id: " + id);
+    }
+  }
+
+  public Customer updateFitnessInfo(Long id, Customer updatedCustomer) {
+    Optional<Customer> existingCustomer = customerRepository.findById(id);
+    if (existingCustomer.isPresent()) {
+      Customer customer = existingCustomer.get();
+      if (updatedCustomer.getCurrentWeight() != null) {
+        customer.setCurrentWeight(updatedCustomer.getCurrentWeight());
+      }
+      if (updatedCustomer.getGoalWeight() != null) {
+        customer.setGoalWeight(updatedCustomer.getGoalWeight());
+      }
+      if (updatedCustomer.getFitnessLevel() != null) {
+        customer.setFitnessLevel(updatedCustomer.getFitnessLevel());
+      }
+      if (updatedCustomer.getFitnessGoals() != null) {
+        customer.setFitnessGoals(updatedCustomer.getFitnessGoals());
+      }
+      if (updatedCustomer.getInjuriesOrHealthConcerns() != null) {
+        customer.setInjuriesOrHealthConcerns(updatedCustomer.getInjuriesOrHealthConcerns());
+      }
       return customerRepository.save(customer);
     } else {
       throw new RuntimeException("Customer not found with id: " + id);
@@ -47,8 +90,8 @@ public class CustomerService {
     customerRepository.deleteById(id);
   }
 
-  public Customer findByUsername(String username) {
-    return customerRepository.findByUsername(username);
+  public Customer findByEmail(String email) {
+    return customerRepository.findByEmail(email);
   }
 
 }

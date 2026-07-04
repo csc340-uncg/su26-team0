@@ -22,16 +22,13 @@ public class Trainer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long trainerId;
+  private Long id;
 
   @Column(nullable = false)
   private String name;
 
-  @Column(nullable = false)
-  private String email;
-
   @Column(nullable = false, unique = true)
-  private String username;
+  private String email;
 
   @Column(nullable = false)
   private String password;
@@ -42,13 +39,22 @@ public class Trainer {
   @Column(columnDefinition = "TEXT")
   private String biography;
 
-  public Trainer(String name, String email, String username, String password, String accountStatus, String biography) {
+  private String certifications;
+
+  private int yearsOfExperience;
+
+  private String specialties;
+
+  public Trainer(String name, String email, String password, String accountStatus, String biography,
+      String certifications, int yearsOfExperience, String specialties) {
     this.name = name;
     this.email = email;
-    this.username = username;
     this.password = password;
     this.accountStatus = accountStatus;
     this.biography = biography;
+    this.certifications = certifications;
+    this.yearsOfExperience = yearsOfExperience;
+    this.specialties = specialties;
   }
 
   @OneToMany(mappedBy = "trainer")

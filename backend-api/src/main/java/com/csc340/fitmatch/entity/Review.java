@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,18 +20,25 @@ public class Review {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long reviewId;
+  private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "customer_id")
   private Customer customer;
 
   @OneToOne
-  @JoinColumn(name = "session_id")
   private TrainingSession trainingSession;
 
   private int rating;
   private String comments;
   private String replyText;
+
+  public Review(Customer customer, TrainingSession trainingSession, int rating, String comments,
+      String replyText) {
+    this.customer = customer;
+    this.trainingSession = trainingSession;
+    this.rating = rating;
+    this.comments = comments;
+    this.replyText = replyText;
+  }
 
 }

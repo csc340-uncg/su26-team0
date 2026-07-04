@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -21,33 +20,37 @@ public class TrainingSession {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long sessionId;
+  private Long id;
 
   @ManyToOne
-  @JoinColumn(name = "customer_id")
   private Customer customer;
 
   @ManyToOne
-  @JoinColumn(name = "trainer_id")
-  private Trainer trainer;
-
-  @ManyToOne
-  @JoinColumn(name = "service_id")
   private TrainingService trainingService;
 
   @OneToOne
-  @JoinColumn(name = "slot_id")
   private Timeslot timeslot;
 
-  private String sessionDate;
-
-  private String sessionNotes;
-  private String sessionStatus;
-  private int sesionDuration; // Duration in minutes
-  private double sessionPrice; // Price for the session
+  private String notes;
+  private String status;
+  private int duration;
+  private double price;
   private String location;
 
   @OneToOne(mappedBy = "trainingSession")
-  private Review review; // One-to-one relationship with Review
+  private Review review;
+
+  public TrainingSession(Customer customer, TrainingService trainingService, Timeslot timeslot,
+      String sessionNotes, String sessionStatus, int sesionDuration, double sessionPrice,
+      String location) {
+    this.customer = customer;
+    this.trainingService = trainingService;
+    this.timeslot = timeslot;
+    this.notes = sessionNotes;
+    this.status = sessionStatus;
+    this.duration = sesionDuration;
+    this.price = sessionPrice;
+    this.location = location;
+  }
 
 }

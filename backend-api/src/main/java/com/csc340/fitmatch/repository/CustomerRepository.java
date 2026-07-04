@@ -7,8 +7,6 @@ import com.csc340.fitmatch.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-  Customer findByUsername(String username);
-
-  Customer findByEmail(String email);
+    Customer findByEmail(String email);
 
 }
