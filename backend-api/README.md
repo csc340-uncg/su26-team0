@@ -7,16 +7,15 @@
 ## Table of Contents
 
 1. [Overview](#1-overview)
-2. [Domain Model](#2-domain-model)
-3. [Data Model Summary](#3-data-model-summary)
-4. [API Endpoints](#4-api-endpoints)
-   - [Customer Endpoints](#41-customer-endpoints)
-   - [Trainer Endpoints](#42-trainer-endpoints)
-   - [Training Service Endpoints](#43-training-service-endpoints)
-   - [Timeslot Endpoints](#44-timeslot-endpoints)
-   - [Training Session Endpoints](#45-training-session-endpoints)
-   - [Review Endpoints](#46-review-endpoints)
-5. [Use Case Mapping](#5-use-case-mapping)
+2. [UML Class Diagram](#2-uml-class-diagram)
+4. [API Endpoints](#3-api-endpoints)
+   - [Customer Endpoints](#31-customer-endpoints)
+   - [Trainer Endpoints](#32-trainer-endpoints)
+   - [Training Service Endpoints](#33-training-service-endpoints)
+   - [Timeslot Endpoints](#34-timeslot-endpoints)
+   - [Training Session Endpoints](#35-training-session-endpoints)
+   - [Review Endpoints](#36-review-endpoints)
+5. [Use Case Mapping](#4-use-case-mapping)
 
 ---
 
