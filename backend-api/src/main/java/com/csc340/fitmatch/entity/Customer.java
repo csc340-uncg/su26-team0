@@ -3,6 +3,8 @@ package com.csc340.fitmatch.entity;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -65,10 +67,12 @@ public class Customer {
   }
 
   @OneToMany(mappedBy = "customer")
+  @JsonIgnoreProperties({"customer"})
   private List<TrainingSession> trainingSessions;
 
 
   @OneToMany(mappedBy = "customer")
+  @JsonIgnoreProperties({"customer"})
   private List<Review> reviews;
 
 }

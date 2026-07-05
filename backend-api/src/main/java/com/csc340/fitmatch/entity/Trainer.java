@@ -2,6 +2,8 @@ package com.csc340.fitmatch.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,12 +43,12 @@ public class Trainer {
 
   private String certifications;
 
-  private int yearsOfExperience;
+  private Integer yearsOfExperience;
 
   private String specialties;
 
   public Trainer(String name, String email, String password, String accountStatus, String biography,
-      String certifications, int yearsOfExperience, String specialties) {
+      String certifications, Integer yearsOfExperience, String specialties) {
     this.name = name;
     this.email = email;
     this.password = password;
@@ -58,9 +60,15 @@ public class Trainer {
   }
 
   @OneToMany(mappedBy = "trainer")
+  @JsonIgnoreProperties({ "trainer" })
   private List<Timeslot> timeslots;
 
   @OneToMany(mappedBy = "trainer")
+  @JsonIgnoreProperties({ "trainer" })
   private List<TrainingService> trainingServices;
+
+  @OneToMany(mappedBy = "trainer")
+  @JsonIgnoreProperties({ "trainer" })
+  private List<Review> reviews;
 
 }

@@ -1,11 +1,13 @@
 package com.csc340.fitmatch.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,19 +25,23 @@ public class Review {
   private Long id;
 
   @ManyToOne
+  @JsonIgnoreProperties({ "reviews", "trainingSessions" })
+  @JoinColumn(nullable = false)
   private Customer customer;
 
-  @OneToOne
-  private TrainingSession trainingSession;
+  @ManyToOne
+  @JsonIgnoreProperties({ "reviews", "timeslots" })
+  @JoinColumn(nullable = false)
+  private Trainer trainer;
 
   private int rating;
   private String comments;
   private String replyText;
 
-  public Review(Customer customer, TrainingSession trainingSession, int rating, String comments,
+  public Review(Customer customer, Trainer trainer, int rating, String comments,
       String replyText) {
     this.customer = customer;
-    this.trainingSession = trainingSession;
+    this.trainer = trainer;
     this.rating = rating;
     this.comments = comments;
     this.replyText = replyText;

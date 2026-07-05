@@ -1,8 +1,10 @@
 package com.csc340.fitmatch.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +46,9 @@ public class CustomerApiController {
   @GetMapping()
   public ResponseEntity<List<Customer>> getAllCustomers() {
     List<Customer> customers = customerService.getAllCustomers();
+    if (customers.isEmpty()) {
+      return ResponseEntity.ok(Collections.emptyList());
+    }
     return ResponseEntity.ok(customers);
   }
 
@@ -83,7 +88,7 @@ public class CustomerApiController {
     }
   }
 
-  @PostMapping("/{id}/delete")
+  @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
     customerService.deleteCustomer(id);
     return ResponseEntity.noContent().build();

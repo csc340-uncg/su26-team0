@@ -32,7 +32,7 @@ public class TrainingServiceService {
     return trainingServiceRepository.save(trainingService);
   }
 
-  List<TrainingService> getTrainingServicesByTrainerId(Long trainerId) {
+  public List<TrainingService> getTrainingServicesByTrainerId(Long trainerId) {
     return trainingServiceRepository.findByTrainerId(trainerId);
   }
 

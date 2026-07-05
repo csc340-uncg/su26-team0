@@ -1,5 +1,7 @@
 package com.csc340.fitmatch.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.csc340.fitmatch.entity.Review;
@@ -18,8 +20,29 @@ public class ReviewService {
     return reviewRepository.save(review);
   }
 
-  public Review getReviewByCustomerAndSession(Long customerId, Long sessionId) {
-    return reviewRepository.findByCustomerIdAndSessionId(customerId, sessionId);
+  public List<Review> getReviewsByCustomerId(Long customerId) {
+    return reviewRepository.findByCustomerId(customerId);
+  }
+
+  public List<Review> getReviewsByTrainerId(Long trainerId) {
+    return reviewRepository.findByTrainerId(trainerId);
+  }
+
+  public Review updateReview(Long reviewId, Review review) {
+    Review existingReview = reviewRepository.findById(reviewId).orElse(null);
+    if (existingReview != null) {
+      if (review.getRating() != 0) {
+        existingReview.setRating(review.getRating());
+      }
+      if (review.getComments() != null) {
+        existingReview.setComments(review.getComments());
+      }
+      if (review.getReplyText() != null) {
+        existingReview.setReplyText(review.getReplyText());
+      }
+      return reviewRepository.save(existingReview);
+    }
+    return null;
   }
 
 }
