@@ -27,6 +27,8 @@ The FitMatch backend exposes a RESTful API for the fitness matching platform des
 
 ## 2. UML Class Diagram
 
+![UML Class Diagram](../docs/uml-class-diagram.png)
+
 ---
 
 ## 3. API Endpoints
@@ -181,6 +183,37 @@ GET /api/trainers/email/{email}
 
 ```http
 GET /api/trainers/specialty?query=strength+training
+```
+
+Example response:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Alice Trainer",
+    "email": "alice@demo.com",
+    "accountStatus": "active",
+    "biography": "Certified strength coach with a focus on mobility and recovery.",
+    "certifications": "NASM, ACE",
+    "yearsOfExperience": 8,
+    "specialties": "strength training, mobility",
+    "trainingServices": [],
+    "timeslots": [],
+  },
+  {
+    "id": 2,
+    "name": "Bob Coach",
+    "email": "bob@demo.com",
+    "accountStatus": "active",
+    "biography": "Experienced personal trainer with a focus on functional fitness.",
+    "certifications": "NASM, ACE",
+    "yearsOfExperience": 10,
+    "specialties": "functional fitness, weight loss",
+    "trainingServices": [],
+    "timeslots": [],
+  }
+]
 ```
 
 #### Update trainer personal information

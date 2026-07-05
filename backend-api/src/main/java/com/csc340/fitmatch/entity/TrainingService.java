@@ -1,10 +1,12 @@
 package com.csc340.fitmatch.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,7 +37,8 @@ public class TrainingService {
 
   private String name;
   private String description;
-  private double price;
+  @Column(precision = 5, scale = 2)
+  private BigDecimal price;
   private String category;
   private String status;
 
@@ -43,7 +46,7 @@ public class TrainingService {
   @JsonIgnore
   private List<TrainingSession> trainingSessions;
 
-  public TrainingService(Trainer trainer, String name, String description, double price,
+  public TrainingService(Trainer trainer, String name, String description, BigDecimal price,
       String category, String status) {
     this.trainer = trainer;
     this.name = name;

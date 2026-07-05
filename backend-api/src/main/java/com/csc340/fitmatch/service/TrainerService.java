@@ -127,7 +127,7 @@ public class TrainerService {
 
     double totalRevenue = sessions.stream()
         .filter(session -> session.getStatus() == null || !"cancelled".equalsIgnoreCase(session.getStatus()))
-        .mapToDouble(session -> session.getTrainingService() != null ? session.getTrainingService().getPrice() : 0.0)
+        .mapToDouble(session -> session.getTrainingService() != null ? session.getTrainingService().getPrice().doubleValue() : 0.0)
         .sum();
 
     double averageRating = reviews.stream()
