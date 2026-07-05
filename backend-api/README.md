@@ -8,14 +8,14 @@
 
 1. [Overview](#1-overview)
 2. [UML Class Diagram](#2-uml-class-diagram)
-4. [API Endpoints](#3-api-endpoints)
+3. [API Endpoints](#3-api-endpoints)
    - [Customer Endpoints](#31-customer-endpoints)
    - [Trainer Endpoints](#32-trainer-endpoints)
    - [Training Service Endpoints](#33-training-service-endpoints)
    - [Timeslot Endpoints](#34-timeslot-endpoints)
    - [Training Session Endpoints](#35-training-session-endpoints)
    - [Review Endpoints](#36-review-endpoints)
-5. [Use Case Mapping](#4-use-case-mapping)
+4. [Use Case Mapping](#4-use-case-mapping)
 
 ---
 
@@ -281,6 +281,25 @@ DELETE /api/training-services/{id}
 
 ### 3.4 Timeslot Endpoints
 
+#### Create a timeslot
+
+```http
+POST /api/timeslots
+```
+
+Request body:
+
+```json
+{
+  "trainer": {
+    "id": 1
+  },
+  "startTime": "2026-07-10 09:00",
+  "endTime": "2026-07-10 10:00",
+  "isAvailable": true
+}
+```
+
 #### Get timeslots for a trainer
 
 ```http
@@ -318,6 +337,32 @@ Example response:
 ---
 
 ### 3.5 Training Session Endpoints
+
+#### Book a training session
+
+```http
+POST /api/training-sessions
+```
+
+Request body:
+
+```json
+{
+  "customer": {
+    "id": 1
+  },
+  "trainingService": {
+    "id": 2
+  },
+  "timeslot": {
+    "id": 10
+  },
+  "notes": "Focus on mobility and posture",
+  "status": "Scheduled",
+  "level": "Beginner",
+  "location": "Downtown Studio"
+}
+```
 
 #### Get training sessions for a customer
 
@@ -381,8 +426,7 @@ Request body:
     "id": 2
   },
   "rating": 5,
-  "comments": "Great coaching and clear instructions.",
-  "replyText": "Thank you for the feedback!"
+  "comments": "Great coaching and clear instructions."
 }
 ```
 
@@ -390,6 +434,15 @@ Request body:
 
 ```http
 PUT /api/reviews/{id}
+```
+
+Request body:
+
+```json
+{
+  "id": 1,
+  "replyText": "Thank you for your feedback! Glad you enjoyed the session."
+}
 ```
 
 ---
@@ -414,4 +467,4 @@ The API endpoints support the following SRS user stories and acceptance flows de
 | US-5 Create and update trainer profile | `POST /api/trainers`, `GET /api/trainers/{id}`, `PUT /api/trainers/{id}`, `DELETE /api/trainers/{id}`  |
 | US-6 Define services and pricing       | `POST /api/training-services`, `PUT /api/training-services/{id}`, `DELETE /api/training-services/{id}` |
 | US-7 Respond to reviews                | `PUT /api/reviews/{id}`                                                                                |
-| US-8 View customer statistics          | `GET /api/trainers/{id}/statistics`                                                                   |
+| US-8 View customer statistics          | `GET /api/trainers/{id}/statistics`                                                                    |

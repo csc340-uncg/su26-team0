@@ -32,8 +32,8 @@ public class TimeslotService {
     return timeSlotRepository.save(timeslot);
   }
 
-  public Timeslot updateTimeslot(Timeslot timeslot) {
-    Timeslot existingTimeslot = timeSlotRepository.findById(timeslot.getId()).orElse(null);
+  public Timeslot updateTimeslot(Long id, Timeslot timeslot) {
+    Timeslot existingTimeslot = timeSlotRepository.findById(id).orElse(null);
     if (existingTimeslot != null) {
       existingTimeslot.setStartTime(timeslot.getStartTime());
       existingTimeslot.setEndTime(timeslot.getEndTime());
