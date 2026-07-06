@@ -29,6 +29,12 @@ public class TrainingSessionController {
     return ResponseEntity.ok(createdSession);
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<TrainingSession> getTrainingSessionById(@PathVariable Long id) {
+    TrainingSession trainingSession = trainingSessionService.getSessionById(id);
+    return ResponseEntity.ok(trainingSession);
+  }
+
   @GetMapping("/customer/{customerId}")
   public ResponseEntity<List<TrainingSession>> getTrainingSessionsByCustomer(@PathVariable Long customerId) {
     List<TrainingSession> trainingSessions = trainingSessionService.getSessionsByCustomerId(customerId);
