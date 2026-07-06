@@ -53,7 +53,7 @@ public class TrainingServiceService {
   }
 
   public List<TrainingService> searchTrainingServicesByName(String query) {
-    return trainingServiceRepository.findByNameOrDescriptionContainingIgnoreCase(query);
+    return trainingServiceRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
   }
 
 }
