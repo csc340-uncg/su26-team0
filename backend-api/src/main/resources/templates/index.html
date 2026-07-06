@@ -52,8 +52,9 @@
               <li><strong>GET</strong> <a href="/api/trainers"> /trainers</a>: Retrieve a list of all trainers.</li>
               <li><strong>GET</strong> <a href="/api/trainers/1">/trainers/{id}</a>: Retrieve details of a specific
                 trainer by ID.</li>
-              <li><strong>GET</strong> <a href="/api/trainers/specialty?query=strength+training">/trainers/specialty?query={name}</a>:
-                Search for trainers by name.</li>
+              <li><strong>GET</strong> <a
+                  href="/api/trainers/specialty?query=strength+training">/trainers/specialty?query={name}</a>:
+                Search for trainers by specialty.</li>
               <li><strong>POST: /trainers</strong> Create a new trainer.</li>
               <li><strong>PUT: /trainers/{id}</strong> : Update an existing trainer by
                 ID.</li>
@@ -71,8 +72,9 @@
               <li><strong>GET</strong> <a
                   href="/api/training-services/trainer/1">/trainers/{trainerId}/training-services</a>:
                 Retrieve all training services offered by a specific trainer.</li>
-                <li><strong>GET</strong> <a
-                  href="/api/training-services/category?category=Strength">/training-services/category?category={category}</a>:
+              <li><strong>GET</strong> <a
+                  href="/api/training-services/category/Strength">/training-services/category/{category}</a>: Retrieve
+                all training services in a specific category.</li>
               <li><strong>GET</strong> <a
                   href="/api/training-services/search?query=strength">/training-services/search?query={query}</a>:
                 Search for training services by name or description.</li>
