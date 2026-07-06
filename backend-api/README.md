@@ -2,7 +2,11 @@
 
 **Version:** 1.0
 **Last Updated:** July 5, 2026
-**Base URL:** http://localhost:8080/api
+
+**Base URL:**
+
+- local: http://localhost:8080
+- production: https://fit-match-pwsn.onrender.com
 
 ## Table of Contents
 
@@ -199,7 +203,7 @@ Example response:
     "yearsOfExperience": 8,
     "specialties": "strength training, mobility",
     "trainingServices": [],
-    "timeslots": [],
+    "timeslots": []
   },
   {
     "id": 2,
@@ -211,7 +215,7 @@ Example response:
     "yearsOfExperience": 10,
     "specialties": "functional fitness, weight loss",
     "trainingServices": [],
-    "timeslots": [],
+    "timeslots": []
   }
 ]
 ```
