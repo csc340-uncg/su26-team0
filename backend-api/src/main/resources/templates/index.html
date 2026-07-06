@@ -69,11 +69,13 @@
               <li><strong>GET </strong><a href="/api/training-services/1">/training-services/{id}</a>: Retrieve
                 details of a specific training service by ID.</li>
               <li><strong>GET</strong> <a
-                  href="/api/training-services/trainer/1/">/trainers/{trainerId}/training-services</a>:
+                  href="/api/training-services/trainer/1">/trainers/{trainerId}/training-services</a>:
                 Retrieve all training services offered by a specific trainer.</li>
+                <li><strong>GET</strong> <a
+                  href="/api/training-services/category?category=Strength">/training-services/category?category={category}</a>:
               <li><strong>GET</strong> <a
-                  href="/api/training-services/search?query=Strength">/training-services/search?query={category}</a>:
-                Search for training services by category.</li>
+                  href="/api/training-services/search?query=strength">/training-services/search?query={query}</a>:
+                Search for training services by name or description.</li>
               <li><strong>POST: /training-services</strong> Create a new training
                 service.</li>
               <li><strong>PUT: /training-services/{id}</strong> : Update an

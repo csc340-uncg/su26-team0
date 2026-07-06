@@ -13,6 +13,6 @@ public interface TrainingServiceRepository extends JpaRepository<TrainingService
 
   List<TrainingService> findByCategoryContainingIgnoreCase(String category);
 
-  List<TrainingService> findByNameContainingIgnoreCase(String query);
+  List<TrainingService> findByNameOrDescriptionContainingIgnoreCase(String query);
 
 }
