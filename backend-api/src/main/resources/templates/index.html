@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Backend API</title>
+  <style>
+    .api-endpoint {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .api-endpoint h3 {
+      margin-top: 0;
+    }
+
+    .api-endpoint ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .api-endpoint li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <section class=" hero">
+      <div class="hero-content">
+        <h1>FitMatch Backend API Documentation</h1>
+        <p>Explore some FitMatch backend API endpoints and their functionalities.</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h2 class="text-center" style="font-size: 2.5rem; margin-bottom: 3rem; font-weight: 700;">API Endpoints</h2>
+        <div class="grid grid-1">
+          <div class="api-endpoint">
+            <h3>Trainer Endpoints</h3>
+            <ul>
+              <li><strong>GET</strong> <a href="/api/trainers"> /trainers</a>: Retrieve a list of all trainers.</li>
+              <li><strong>GET</strong> <a href="/api/trainers/1">/trainers/{id}</a>: Retrieve details of a specific
+                trainer by ID.</li>
+              <li><strong>POST</strong> <a href="/api/trainers">/trainers</a>: Create a new trainer.</li>
+              <li><strong>PUT</strong> <a href="/api/trainers/{id}">/trainers/{id}</a>: Update an existing trainer by
+                ID.</li>
+              <li><strong>DELETE</strong> <a href="/api/trainers/{id}">/trainers/{id}</a>: Delete a trainer by ID.</li>
+            </ul>
+          </div>
+
+          <div class="api-endpoint">
+            <h3>Training Service Endpoints</h3>
+            <ul>
+              <li><strong>GET</strong> <a href="/api/training-services"> /training-services</a>: Retrieve a list of all
+                training services.</li>
+              <li><strong>GET </strong><a href="/api/training-services/{id}">/training-services/{id}</a>: Retrieve
+                details of a specific training service by ID.</li>
+              <li><strong>GET</strong> <a
+                  href="/api/training-services/trainer/{trainerId}/">/trainers/{trainerId}/training-services</a>:
+                Retrieve all training services offered by a specific trainer.</li>
+              <li><strong>GET</strong> <a
+                  href="/api/training-services/search?query=Strength">/training-services/search?query={category}</a>:
+                Search for training services by category.</li>
+              <li><strong>POST</strong> <a href="/api/training-services">/training-services</a>: Create a new training
+                service.</li>
+              <li><strong>PUT</strong> <a href="/api/training-services/{id}">/training-services/{id}</a>: Update an
+                existing training service by ID.</li>
+              <li><strong>DELETE</strong> <a href="/api/training-services/{id}">/training-services/{id}</a>: Delete a
+                training service by ID.</li>
+            </ul>
+          </div>
+          <div class="api-endpoint">
+            <h3>Training Session Endpoints</h3>
+            <ul>
+              <li><strong>GET</strong> <a href="/api/training-sessions"> /training-sessions</a>: Retrieve a list of all
+                training sessions.</li>
+              <li><strong>GET</strong> <a href="/api/training-sessions/{id}">/training-sessions/{id}</a>: Retrieve
+                details of a specific
+                training session by ID.</li>
+              <li><strong>GET</strong> <a
+                  href="/api/training-sessions/customer/{customerId}">/training-sessions/customer/{customerId}</a>:
+                Retrieve all training sessions for a specific customer.</li>
+              <li><strong>POST</strong> <a href="/api/training-sessions">/training-sessions</a>: Create a new training
+                session.</li>
+              <li><strong>PUT</strong> <a href="/api/training-sessions/{id}">/training-sessions/{id}</a>: Update an
+                existing training session by
+                ID.</li>
+              <li><strong>DELETE</strong> <a href="/api/training-sessions/{id}">/training-sessions/{id}</a>: Delete a
+                training session by ID.</li>
+            </ul>
+          </div>
+
+          <div class="api-endpoint">
+            <h3>Review Endpoints</h3>
+            <ul>
+              <li><strong>GET</strong> <a href="/api/reviews/customer/{customerId}">/reviews/customer/{customerId}</a>:
+                Retrieve all reviews for a specific customer.</li>
+              <li><strong>GET</strong> <a href="/api/reviews/{id}">/reviews/{id}</a>: Retrieve details of a specific
+                review by ID.</li>
+              <li><strong>GET</strong> <a href="/api/reviews/trainer/{trainerId}/">/trainers/{trainerId}/reviews</a>:
+                Retrieve all reviews for a
+                specific trainer.</li>
+              <li><strong>POST</strong> <a href="/api/reviews">/reviews</a>: Create a new review.</li>
+              <li><strong>PUT</strong> <a href="/api/reviews/{id}">/reviews/{id}</a>: Update an existing review by ID.
+              </li>
+              <li><strong>DELETE</strong> <a href="/api/reviews/{id}">/reviews/{id}</a>: Delete a review by ID.</li>
+            </ul>
+          </div>
+
+
+
+    </section>
+
+
+  </div>
+
+
+</body>
+
+</html>
