@@ -302,6 +302,12 @@ GET /api/training-services/{id}
 GET /api/training-services/trainer/{trainerId}
 ```
 
+##### Search training services by name
+
+```http
+GET /api/training-services/search?query=Strength
+```
+
 #### Update a training service
 
 ```http

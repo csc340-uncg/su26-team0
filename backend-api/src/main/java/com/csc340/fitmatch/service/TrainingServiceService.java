@@ -52,4 +52,8 @@ public class TrainingServiceService {
     trainingServiceRepository.deleteById(id);
   }
 
+  public List<TrainingService> searchTrainingServicesByName(String query) {
+    return trainingServiceRepository.findByNameContainingIgnoreCase(query);
+  }
+
 }

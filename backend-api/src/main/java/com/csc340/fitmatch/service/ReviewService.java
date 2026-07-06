@@ -45,4 +45,8 @@ public class ReviewService {
     return null;
   }
 
+  public Review getReviewById(Long id) {
+    return reviewRepository.findById(id).orElse(null);
+  }
+
 }

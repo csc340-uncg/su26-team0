@@ -52,6 +52,8 @@
               <li><strong>GET</strong> <a href="/api/trainers"> /trainers</a>: Retrieve a list of all trainers.</li>
               <li><strong>GET</strong> <a href="/api/trainers/1">/trainers/{id}</a>: Retrieve details of a specific
                 trainer by ID.</li>
+              <li><strong>GET</strong> <a href="/api/trainers/search?query=Strength">/trainers/search?query={name}</a>:
+                Search for trainers by name.</li>
               <li><strong>POST: /trainers</strong> Create a new trainer.</li>
               <li><strong>PUT: /trainers/{id}</strong> : Update an existing trainer by
                 ID.</li>
@@ -83,9 +85,7 @@
           <div class="api-endpoint">
             <h3>Training Session Endpoints</h3>
             <ul>
-              <li><strong>GET</strong> <a href="/api/training-sessions"> /training-sessions</a>: Retrieve a list of all
-                training sessions.</li>
-              <li><strong>GET</strong> <a href="/api/training-sessions/{id}">/training-sessions/{id}</a>: Retrieve
+              <li><strong>GET</strong> <a href="/api/training-sessions/1">/training-sessions/{id}</a>: Retrieve
                 details of a specific
                 training session by ID.</li>
               <li><strong>GET</strong> <a

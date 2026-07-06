@@ -24,6 +24,15 @@ public class ReviewController {
     this.reviewService = reviewService;
   }
 
+  @GetMapping("/{id}")
+  public ResponseEntity<Review> getReviewById(@PathVariable Long id) {
+    Review review = reviewService.getReviewById(id);
+    if (review == null) {
+      return ResponseEntity.notFound().build();
+    }
+    return ResponseEntity.ok(review);
+  }
+
   @GetMapping("/customer/{customerId}")
   public ResponseEntity<List<Review>> getReviewsByCustomerId(@PathVariable Long customerId) {
     List<Review> reviews = reviewService.getReviewsByCustomerId(customerId);

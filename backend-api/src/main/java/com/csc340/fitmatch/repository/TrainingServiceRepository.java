@@ -10,6 +10,9 @@ import com.csc340.fitmatch.entity.TrainingService;
 @Repository
 public interface TrainingServiceRepository extends JpaRepository<TrainingService, Long> {
   List<TrainingService> findByTrainerId(Long trainerId);
+
   List<TrainingService> findByCategoryContainingIgnoreCase(String category);
+
+  List<TrainingService> findByNameContainingIgnoreCase(String query);
 
 }

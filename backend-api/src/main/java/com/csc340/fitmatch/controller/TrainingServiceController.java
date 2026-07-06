@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csc340.fitmatch.entity.TrainingService;
@@ -42,6 +43,18 @@ public class TrainingServiceController {
   @GetMapping("/trainer/{trainerId}")
   public ResponseEntity<List<TrainingService>> getTrainingServicesByTrainerId(@PathVariable Long trainerId) {
     List<TrainingService> trainingServices = trainingServiceService.getTrainingServicesByTrainerId(trainerId);
+    return ResponseEntity.ok(trainingServices);
+  }
+
+  @GetMapping("/category/{category}")
+  public ResponseEntity<List<TrainingService>> getTrainingServicesByCategory(@PathVariable String category) {
+    List<TrainingService> trainingServices = trainingServiceService.getTrainingServicesByCategory(category);
+    return ResponseEntity.ok(trainingServices);
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<List<TrainingService>> searchTrainingServicesByName(@RequestParam String query) {
+    List<TrainingService> trainingServices = trainingServiceService.searchTrainingServicesByName(query);
     return ResponseEntity.ok(trainingServices);
   }
 
