@@ -490,7 +490,7 @@ Request body:
 
 ---
 
-## 5. Use Case Mapping
+## 4. Use Case Mapping
 
 The API endpoints support the following SRS user stories and acceptance flows described in the requirements document.
 
