@@ -30,9 +30,13 @@ public class TrainerController {
 
   @GetMapping("/{id}")
   public ResponseEntity<Trainer> getTrainerById(@PathVariable Long id) {
-    return trainerService.findById(id)
-        .map(ResponseEntity::ok)
-        .orElse(ResponseEntity.notFound().build());
+    Trainer trainer = trainerService.findById(id);
+    if (trainer != null) {
+      return ResponseEntity.ok(trainer);
+    } else {
+      return ResponseEntity.notFound().build();
+    }
+
   }
 
   @GetMapping("/{id}/statistics")

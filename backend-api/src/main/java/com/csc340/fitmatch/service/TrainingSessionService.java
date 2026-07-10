@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.csc340.fitmatch.entity.Timeslot;
 import com.csc340.fitmatch.repository.TrainingSessionRepository;
 import com.csc340.fitmatch.entity.TrainingSession;
 
@@ -47,13 +48,15 @@ public class TrainingSessionService {
     trainingSessionRepository.deleteById(sessionId);
   }
 
-  public TrainingSession cancelTrainingSession(Long sessionId) {
+  public void cancelTrainingSession(Long sessionId) {
     TrainingSession existingSession = trainingSessionRepository.findById(sessionId).orElse(null);
     if (existingSession != null) {
-      existingSession.setStatus("Cancelled");
-      return trainingSessionRepository.save(existingSession);
+      Timeslot timeslot = existingSession.getTimeslot();
+      if (timeslot != null) {
+        timeslot.setIsAvailable(true);
+      }
+      trainingSessionRepository.delete(existingSession);
     }
-    return null;
   }
 
 }

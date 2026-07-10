@@ -34,8 +34,8 @@ public class TrainerService {
     return trainerRepository.findAll();
   }
 
-  public Optional<Trainer> findById(Long id) {
-    return trainerRepository.findById(id);
+  public Trainer findById(Long id) {
+    return trainerRepository.findById(id).orElse(null);
   }
 
   public Trainer createTrainer(Trainer trainer) {
