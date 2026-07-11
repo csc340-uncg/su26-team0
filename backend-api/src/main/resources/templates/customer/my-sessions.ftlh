@@ -116,7 +116,7 @@
                           </div>
                           <div class="session-details">
                             <div class="detail-item"><span class="detail-label">Date & Time:</span>
-                              ${session.timeslot.startTime!"TBD"}</div>
+                              ${(session.timeslot.startTime?datetime.iso?string('yyyy-MM-dd hh:mm a'))!"TBD"}</div>
                             <div class="detail-item"><span class="detail-label">Location:</span> ${session.location!"To
                               be confirmed"}</div>
                             <div class="detail-item"><span class="detail-label">Price:</span>

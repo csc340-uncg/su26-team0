@@ -40,147 +40,66 @@
       <div class="container">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
           <h2 style="font-size: 1.5rem; font-weight: 700;">Your Training Services</h2>
-          <button class="btn btn-primary" onclick="window.location.href='new-service.html'">+ Add New Service</button>
+          <a class="btn btn-primary" style="text-decoration: none; color: gray;" href="/trainer/services/new">Add New
+            Service</a>
         </div>
 
-        <!-- Service 1 -->
-        <div class="card" style="margin-bottom: 1.5rem;">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Strength Training Program</h3>
-              <p class="card-subtitle">1-on-1 personalized strength training sessions</p>
-            </div>
-          </div>
-          <div class="card-content">
-            <div class="grid grid-2">
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Duration:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">60 minutes</p>
-
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Price:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">$60/session</p>
-
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Difficulty Level:</strong></p>
-                <p style="font-weight: 600;">Intermediate to Advanced</p>
+        <#if services?has_content>
+          <#list services as service>
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">${service.name!'Training Service'}</h3>
+                  <p class="card-subtitle">${service.category!'General'}</p>
+                </div>
+                <div>
+                  <span class="badge"
+                    style="background: var(--secondary-color); color: white; padding: 0.35rem 0.75rem; border-radius: 0.75rem;">${service.status!'Active'}</span>
+                </div>
               </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Description:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">Focus on compound lifts and progressive overload for
-                  maximum strength gains.</p>
+              <div class="card-content">
+                <div class="grid grid-2">
+                  <div>
+                    <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Price:</strong></p>
+                    <p style="font-weight: 600; margin-bottom: 1rem;">${service.price!'Contact for pricing'}</p>
 
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Availability:</strong></p>
-                <p style="font-weight: 600;">Mon, Tue, Wed, Fri, Sat (6-8 PM)</p>
-              </div>
-            </div>
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-              <button class="btn btn-outline" onclick="window.location.href='edit-service.html'">Edit</button>
-              <button class="btn btn-outline" onclick="alert('Deactivate service')"
-                style="color: var(--danger-color); border-color: var(--danger-color);">Deactivate</button>
-            </div>
-          </div>
-        </div>
+                    <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Category:</strong></p>
+                    <p style="font-weight: 600; margin-bottom: 1rem;">${service.category!'General'}</p>
 
-        <!-- Service 2 -->
-        <div class="card" style="margin-bottom: 1.5rem;">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Circuit Training & Conditioning</h3>
-              <p class="card-subtitle">High-intensity group or individual sessions</p>
-            </div>
-          </div>
-          <div class="card-content">
-            <div class="grid grid-2">
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Duration:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">45 minutes</p>
+                    <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Status:</strong></p>
+                    <p style="font-weight: 600;">${service.status!'Active'}</p>
+                  </div>
+                  <div>
+                    <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Description:</strong></p>
+                    <p style="font-weight: 600; margin-bottom: 1rem;">${service.description!'No description yet.'}</p>
 
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Price:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">$45/session</p>
-
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Difficulty Level:</strong></p>
-                <p style="font-weight: 600;">All Levels</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Description:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">Fast-paced sessions combining cardio, weights, and
-                  functional movements for total body conditioning.</p>
-
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Availability:</strong></p>
-                <p style="font-weight: 600;">Mon-Fri (5:30-6:30 PM), Sat (8-9 AM)</p>
+                    <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Sessions Booked:</strong></p>
+                    <p style="font-weight: 600;">${service.trainingSessions?size!'0'}</p>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                  <button class="btn btn-outline"
+                    onclick="window.location.href='/trainer/services/${service.id}/edit'">Edit</button>
+                  <a class="btn btn-outline" style="color: var(--danger-color); border-color: var(--danger-color);"
+                    onclick="return confirm('Are you sure you want to deactivate this service?');"
+                    href="/trainer/services/${service.id}/deactivate">Deactivate</a>
+                </div>
               </div>
             </div>
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-              <button class="btn btn-outline" onclick="alert('Edit service')">Edit</button>
-              <button class="btn btn-outline" onclick="alert('Deactivate service')"
-                style="color: var(--danger-color); border-color: var(--danger-color);">Deactivate</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="card" style="margin-bottom: 1.5rem;">
-          <div class="card-header">
-            <div>
-              <h3 class="card-title">Personal Nutrition & Fitness Consultation</h3>
-              <p class="card-subtitle">Personalized fitness planning and nutrition guidance</p>
-            </div>
-          </div>
-          <div class="card-content">
-            <div class="grid grid-2">
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Duration:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">30 minutes</p>
-
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Price:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">$40/session</p>
-
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Difficulty Level:</strong></p>
-                <p style="font-weight: 600;">All Levels</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Description:</strong></p>
-                <p style="font-weight: 600; margin-bottom: 1rem;">One-on-one consultation for goal setting, program
-                  design, and lifestyle coaching.</p>
-
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Availability:</strong></p>
-                <p style="font-weight: 600;">By appointment (flexible)</p>
+          </#list>
+          <#else>
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-content">
+                <p class="text-muted">You have not added any services yet.</p>
               </div>
             </div>
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-              <button class="btn btn-outline" onclick="alert('Edit service')">Edit</button>
-              <button class="btn btn-outline" onclick="alert('Deactivate service')"
-                style="color: var(--danger-color); border-color: var(--danger-color);">Deactivate</button>
-            </div>
-          </div>
-        </div>
+        </#if>
 
-        <!-- Service Stats -->
-        <div
-          style="background: var(--light-gray); padding: 2rem; border-radius: var(--border-radius); margin-top: 2rem;">
-          <h3 style="font-weight: 700; margin-bottom: 1rem;">Service Performance</h3>
-          <div class="grid grid-3">
-            <div>
-              <p class="text-muted" style="margin-bottom: 0.25rem;">Most Popular Service</p>
-              <p style="font-weight: 700; font-size: 1.1rem;">Strength Training (48 bookings)</p>
-            </div>
-            <div>
-              <p class="text-muted" style="margin-bottom: 0.25rem;">Average Rating</p>
-              <p style="font-weight: 700; font-size: 1.1rem;">4.9/5 across all services</p>
-            </div>
-            <div>
-              <p class="text-muted" style="margin-bottom: 0.25rem;">Total Revenue</p>
-              <p style="font-weight: 700; font-size: 1.1rem;">$2,880 this month</p>
-            </div>
-          </div>
-        </div>
+        <!-- Footer -->
+        <footer>
+          <p>&copy; 2026 FitMatch. All rights reserved.</p>
+        </footer>
       </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2026 FitMatch. All rights reserved.</p>
-    </footer>
-  </div>
 </body>
 
 </html>

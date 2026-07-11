@@ -64,247 +64,35 @@
     <section class="section">
       <div class="container">
         <div class="grid grid-2">
-
-          <!-- Client Card 1 -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">John Doe</h3>
-              <p class="card-subtitle">Active Client • 6 sessions completed</p>
-            </div>
-            <div class="card-content">
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Primary Goal:</strong></p>
-                <p style="font-weight: 600;">Strength Training</p>
+          <#if clients?has_content>
+            <#list clients as client>
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="card-title">${client.name}</h3>
+                  <p class="card-subtitle">${client.accountStatus?cap_first} Client</p>
+                </div>
+                <div class="card-content">
+                  <div style="margin-bottom: 1rem;">
+                    <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Email:</strong></p>
+                    <p style="font-weight: 600;">${client.email}</p>
+                  </div>
+                  <div style="margin-bottom: 1rem;">
+                    <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Phone:</strong></p>
+                    <p style="font-weight: 600;">${client.phoneNumber!"Not provided"}</p>
+                  </div>
+                  <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <a class="btn btn-primary" style="flex: 1; text-decoration: none; color: white;" href="/trainer/clients/${client.id}">View Profile</a>
+                  </div>
+                </div>
               </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Fitness Level:</strong></p>
-                <p style="font-weight: 600;">Intermediate</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Phone:</strong></p>
-                <p style="font-weight: 600;">+1 (555) 123-4567</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Next Session:</strong></p>
-                <p style="font-weight: 600;">Friday, 6:00 PM</p>
-              </div>
-              <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-primary" style="flex: 1;"><a style="text-decoration: none; color: white;"
-                    href="/trainer/clients/1">View Profile</a></button>
-                <button class="btn btn-outline"
-                  onclick="document.querySelector('#message-modal1').style.display = 'block';"
-                  style="flex: 1;">Message</button>
-              </div>
-              <div style="margin: 1rem; display: none;" id="message-modal1">
-                <textarea placeholder="Type your message here..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;"
-                  onclick="document.querySelector('#message-modal1').style.display = 'none';">Send
-                  Message</button>
+            </#list>
+          <#else>
+            <div class="card" style="width: 100%;">
+              <div class="card-content">
+                <p>No clients found yet. Once customers book a session, they will appear here.</p>
               </div>
             </div>
-          </div>
-
-          <!-- Client Card 2 -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Sarah Martinez</h3>
-              <p class="card-subtitle">Active Client • 8 sessions completed</p>
-            </div>
-            <div class="card-content">
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Primary Goal:</strong></p>
-                <p style="font-weight: 600;">Weight Loss</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Fitness Level:</strong></p>
-                <p style="font-weight: 600;">Beginner</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Phone:</strong></p>
-                <p style="font-weight: 600;">+1 (555) 234-5678</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Next Session:</strong></p>
-                <p style="font-weight: 600;">Tuesday, 7:00 PM</p>
-              </div>
-              <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-primary" style="flex: 1;"><a style="text-decoration: none; color: white;"
-                    href="/trainer/clients/1">View Profile</a></button>
-                <button class="btn btn-outline"
-                  onclick="document.querySelector('#message-modal2').style.display = 'block';"
-                  style="flex: 1;">Message</button>
-              </div>
-              <div style="margin: 1rem; display: none;" id="message-modal2">
-                <textarea placeholder="Type your message here..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;"
-                  onclick="document.querySelector('#message-modal2').style.display = 'none';">Send
-                  Message</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Client Card 3 -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Michael Chen</h3>
-              <p class="card-subtitle">Active Client • 5 sessions completed</p>
-            </div>
-            <div class="card-content">
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Primary Goal:</strong></p>
-                <p style="font-weight: 600;">Rehabilitation</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Fitness Level:</strong></p>
-                <p style="font-weight: 600;">Intermediate</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Phone:</strong></p>
-                <p style="font-weight: 600;">+1 (555) 345-6789</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Next Session:</strong></p>
-                <p style="font-weight: 600;">Wednesday, 3:00 PM</p>
-              </div>
-              <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-primary" style="flex: 1;"><a style="text-decoration: none; color: white;"
-                    href="/trainer/clients/1">View Profile</a></button>
-                <button class="btn btn-outline"
-                  onclick="document.querySelector('#message-modal3').style.display = 'block';"
-                  style="flex: 1;">Message</button>
-              </div>
-              <div style="margin: 1rem; display: none;" id="message-modal3">
-                <textarea placeholder="Type your message here..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;"
-                  onclick="document.querySelector('#message-modal3').style.display = 'none';">Send
-                  Message</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Client Card 4 -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Emily Johnson</h3>
-              <p class="card-subtitle">Active Client • 12 sessions completed</p>
-            </div>
-            <div class="card-content">
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Primary Goal:</strong></p>
-                <p style="font-weight: 600;">General Wellness</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Fitness Level:</strong></p>
-                <p style="font-weight: 600;">Beginner</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Phone:</strong></p>
-                <p style="font-weight: 600;">+1 (555) 456-7890</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Next Session:</strong></p>
-                <p style="font-weight: 600;">Monday, 10:00 AM</p>
-              </div>
-              <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-primary" style="flex: 1;"><a style="text-decoration: none; color: white;"
-                    href="/trainer/clients/1">View Profile</a></button>
-                <button class="btn btn-outline"
-                  onclick="document.querySelector('#message-modal4').style.display = 'block';"
-                  style="flex: 1;">Message</button>
-              </div>
-              <div style="margin: 1rem; display: none;" id="message-modal4">
-                <textarea placeholder="Type your message here..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;"
-                  onclick="document.querySelector('#message-modal4').style.display = 'none';">Send
-                  Message</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Client Card 5 -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">David Thompson</h3>
-              <p class="card-subtitle">Active Client • 4 sessions completed</p>
-            </div>
-            <div class="card-content">
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Primary Goal:</strong></p>
-                <p style="font-weight: 600;">Strength Training</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Fitness Level:</strong></p>
-                <p style="font-weight: 600;">Advanced</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Phone:</strong></p>
-                <p style="font-weight: 600;">+1 (555) 567-8901</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Next Session:</strong></p>
-                <p style="font-weight: 600;">Thursday, 6:30 PM</p>
-              </div>
-              <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-primary" style="flex: 1;"><a style="text-decoration: none; color: white;"
-                    href="/trainer/clients/1">View Profile</a></button>
-                <button class="btn btn-outline"
-                  onclick="document.querySelector('#message-modal5').style.display = 'block';"
-                  style="flex: 1;">Message</button>
-              </div>
-              <div style="margin: 1rem; display: none;" id="message-modal5">
-                <textarea placeholder="Type your message here..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;"
-                  onclick="document.querySelector('#message-modal5').style.display = 'none';">Send
-                  Message</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Client Card 6 -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Lisa Anderson</h3>
-              <p class="card-subtitle">Past Client • 15 sessions completed</p>
-            </div>
-            <div class="card-content">
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Primary Goal:</strong></p>
-                <p style="font-weight: 600;">Weight Loss</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Fitness Level:</strong></p>
-                <p style="font-weight: 600;">Intermediate</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Phone:</strong></p>
-                <p style="font-weight: 600;">+1 (555) 678-9012</p>
-              </div>
-              <div style="margin-bottom: 1rem;">
-                <p class="text-muted" style="margin-bottom: 0.25rem;"><strong>Last Session:</strong></p>
-                <p style="font-weight: 600;">April 15, 2026</p>
-              </div>
-              <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="btn btn-primary" style="flex: 1;"><a style="text-decoration: none; color: white;"
-                    href="/trainer/clients/1">View Profile</a></button>
-                <button class="btn btn-outline"
-                  onclick="document.querySelector('#message-modal6').style.display = 'block';"
-                  style="flex: 1;">Message</button>
-              </div>
-              <div style="margin: 1rem; display: none;" id="message-modal6">
-                <textarea placeholder="Type your message here..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;"
-                  onclick="document.querySelector('#message-modal6').style.display = 'none';">Send
-                  Message</button>
-              </div>
-            </div>
-          </div>
-
+          </#if>
         </div>
       </div>
     </section>

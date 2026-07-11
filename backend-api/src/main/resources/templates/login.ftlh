@@ -52,15 +52,15 @@
                 <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot password?</a>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-large" formaction="/customer/login" formmethod="post"
-                style="width: 100%; margin-top: 1.5rem;">
-                Sign In as Customer
-              </button>
+              <div class="d-flex flex-column flex-md-row gap-2 mt-3">
+                <button type="submit" class="btn btn-primary btn-large flex-fill" formaction="/customer/login" formmethod="post">
+                  Sign In as Customer
+                </button>
 
-              <button type="submit" class="btn btn-outline btn-large" formaction="/trainer/login" formmethod="post"
-                style="width: 100%; margin-top: 1rem;">
-                Sign In as Trainer/Provider
-              </button>
+                <button type="submit" class="btn btn-outline btn-large flex-fill" formaction="/trainer/login" formmethod="post">
+                  Sign In as Trainer/Provider
+                </button>
+              </div>
             </form>
 
             <p class="text-center mt-4">

@@ -36,22 +36,17 @@
               C</div>
           </div>
           <div>
-            <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white;" id="client-name">John
-              Doe</h1>
-            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 1rem; color: white;" id="client-status">Active
-              Client </p>
+            <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white;">${client.name}</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 1rem; color: white;">
+              ${client.accountStatus?cap_first} Client</p>
             <div style="display: flex; gap: 2rem;">
               <div>
-                <p style="opacity: 0.8; margin-bottom: 0.25rem;">Member Since</p>
-                <p style="font-size: 1.5rem; font-weight: 700;">Jan 2026</p>
-              </div>
-              <div>
                 <p style="opacity: 0.8; margin-bottom: 0.25rem;">Total Sessions</p>
-                <p style="font-size: 1.5rem; font-weight: 700;" id="sessions-completed">6</p>
+                <p style="font-size: 1.5rem; font-weight: 700;">${sessionsCount}</p>
               </div>
               <div>
                 <p style="opacity: 0.8; margin-bottom: 0.25rem;">Client Rating</p>
-                <p style="font-size: 1.5rem; font-weight: 700;"> </wa-icon>5.0 / 5.0</p>
+                <p style="font-size: 1.5rem; font-weight: 700;">${clientRating?string("0.0")} / 5.0</p>
               </div>
             </div>
           </div>
@@ -75,15 +70,15 @@
               <div class="card-content">
                 <div style="margin-bottom: 1rem;">
                   <p style="color: #999; margin-bottom: 0.25rem;">Email</p>
-                  <p style="font-weight: 600;" id="client-email">john.doe@email.com</p>
+                  <p style="font-weight: 600;">${client.email}</p>
                 </div>
                 <div style="margin-bottom: 1rem;">
                   <p style="color: #999; margin-bottom: 0.25rem;">Phone</p>
-                  <p style="font-weight: 600;" id="client-phone">+1 (555) 123-4567</p>
+                  <p style="font-weight: 600;">${client.phoneNumber!"Not provided"}</p>
                 </div>
                 <div>
                   <p style="color: #999; margin-bottom: 0.25rem;">Preferred Location</p>
-                  <p style="font-weight: 600;">Downtown Gym</p>
+                  <p style="font-weight: 600;">${client.preferredLocation!"Not set"}</p>
                 </div>
               </div>
             </div>
@@ -96,17 +91,11 @@
               <div class="card-content">
                 <div style="margin-bottom: 1.5rem;">
                   <p style="color: #999; margin-bottom: 0.5rem;">Primary Goal</p>
-                  <p style="font-weight: 600; font-size: 1.1rem;" id="client-goal">Strength Training</p>
+                  <p style="font-weight: 600; font-size: 1.1rem;">${client.fitnessGoals!"Not set"}</p>
                 </div>
                 <div style="margin-bottom: 1.5rem;">
                   <p style="color: #999; margin-bottom: 0.5rem;">Fitness Level</p>
-                  <p style="font-weight: 600; font-size: 1.1rem;" id="client-level">Intermediate</p>
-                </div>
-                <div>
-                  <p style="color: #999; margin-bottom: 0.5rem;">Progress This Month</p>
-                  <div style="background: var(--light-gray); border-radius: var(--border-radius); padding: 1rem;">
-                    <p style="font-weight: 600;">2 sessions completed • +5 lbs strength gain</p>
-                  </div>
+                  <p style="font-weight: 600; font-size: 1.1rem;">${client.fitnessLevel!"Not set"}</p>
                 </div>
               </div>
             </div>
@@ -119,39 +108,9 @@
               <div class="card-content">
                 <div style="margin-bottom: 1.5rem;">
                   <p style="color: #999; margin-bottom: 0.5rem;">Injuries / Conditions</p>
-                  <p style="font-weight: 600;" id="client-injuries">Lower back pain (mild)</p>
+                  <p style="font-weight: 600;">${client.injuriesOrHealthConcerns!"None reported"}</p>
                 </div>
                 <div>
-                  <p style="color: #999; margin-bottom: 0.5rem;">Exercise Restrictions</p>
-                  <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                    <span
-                      style="background: var(--danger-light); color: var(--danger-color); padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.9rem;">Avoid
-                      heavy overhead pressing</span>
-                    <span
-                      style="background: var(--danger-light); color: var(--danger-color); padding: 0.5rem 0.75rem; border-radius: 20px; font-size: 0.9rem;">No
-                      plyometrics</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Session Preferences -->
-            <div class="card" style="margin-bottom: 2rem;">
-              <div class="card-header">
-                <h2 style="font-size: 1.3rem; font-weight: 700;">Session Preferences</h2>
-              </div>
-              <div class="card-content">
-                <div style="margin-bottom: 1.5rem;">
-                  <p style="color: #999; margin-bottom: 0.5rem;">Preferred Frequency</p>
-                  <p style="font-weight: 600;">2-3 times per week</p>
-                </div>
-                <div style="margin-bottom: 1.5rem;">
-                  <p style="color: #999; margin-bottom: 0.5rem;">Session Duration</p>
-                  <p style="font-weight: 600;">60 minutes</p>
-                </div>
-                <div>
-                  <p style="color: #999; margin-bottom: 0.5rem;">Preferred Time</p>
-                  <p style="font-weight: 600;">Evening (6:00 PM - 8:00 PM)</p>
                 </div>
               </div>
             </div>
@@ -159,83 +118,68 @@
             <!-- Session History -->
             <div class="card">
               <div class="card-header">
-                <h2 style="font-size: 1.3rem; font-weight: 700;">Recent Sessions</h2>
+                <h2 style="font-size: 1.3rem; font-weight: 700;">Sessions</h2>
               </div>
               <div class="card-content">
 
-                <!-- Session 1 -->
-                <div style="padding: 1.5rem; border-bottom: 1px solid var(--light-gray);">
-                  <div
-                    style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                    <p style="font-weight: 600;">Strength Training Session</p>
-                    <p
-                      style="background: var(--success-light); color: var(--success-color); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
-                      ✓ Completed</p>
-                  </div>
-                  <p style="font-size: 0.9rem; color: #999; margin-bottom: 0.5rem;">June 21, 2026 • 6:00 PM - 7:00 PM
-                  </p>
-                  <p style="color: #666; font-size: 0.9rem;">Focused on compound lifts. Client showed improvement in
-                    form and completed all sets.</p>
-                </div>
+                <#if sessions?has_content>
+                  <#list sessions as s>
+                    <div style="padding: 1.5rem; border: 1px solid var(--light-gray);">
+                      <div
+                        style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                        <p style="font-weight: 600;">${s.trainingService.name}</p>
+                        <p style="font-weight: 600; color: var(--primary-dark);">
+                          <#if s.status?has_content>
+                            ${s.status}
+                          </#if>
+                        </p>
+                        <#if s.status=="Scheduled" && s.timeslot.startTime?datetime.iso?long < .now?long>
+                          <a class="btn btn-outline" style="margin-top: 1rem; "
+                            href="/trainer/sessions/${s.id}/complete">Mark As Complete</a>
+                        </#if>
 
-                <!-- Session 2 -->
-                <div style="padding: 1.5rem; border-bottom: 1px solid var(--light-gray);">
-                  <div
-                    style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                    <p style="font-weight: 600;">Lower Body Strength</p>
-                    <p
-                      style="background: var(--success-light); color: var(--success-color); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
-                      ✓ Completed</p>
-                  </div>
-                  <p style="font-size: 0.9rem; color: #999; margin-bottom: 0.5rem;">June 19, 2026 • 6:30 PM - 7:30 PM
-                  </p>
-                  <p style="color: #666; font-size: 0.9rem;">Lower body focus with careful attention to back. Good
-                    progression on leg press.</p>
-                </div>
+                      </div>
+                      <p style="font-size: 0.9rem; color: #999; margin-bottom: 0.5rem;">
+                        ${(s.timeslot.startTime?datetime.iso?string('yyyy-MM-dd hh:mm a'))!"TBD"} -
+                        ${(s.timeslot.endTime?datetime.iso?string('yyyy-MM-dd hh:mm a'))!"TBD"}</p>
+                      <#if s.status == "Scheduled">
+                        <p style="color: #444; font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>Location:</strong> ${s.location!"To be confirmed"}</p>
+                        <form method="post" action="/trainer/sessions/${s.id}/location">
+                          <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.75rem;">
+                            <input type="text" name="location" value="${s.location!''}" placeholder="Update location"
+                              style="flex: 1; padding: 0.65rem; border: 1px solid #ccc; border-radius: 0.4rem;" />
+                            <button type="submit" class="btn btn-outline" style="white-space: nowrap;">Update</button>
+                          </div>
+                        </form>
+                      </#if>
+                      <p style="color: #666; font-size: 0.9rem;">${s.notes!"No notes"}</p>
+                      <#if s.status=="Completed">
+                        <div style="margin-top: 1rem;">
+                          <form method="post" action="/trainer/sessions/${s.id}/notes">
+                            <div style="margin-bottom: 0.5rem;">
+                              <label for="notes-${s.id}"
+                                style="font-weight: 600; color: #999; display:block; margin-bottom:0.25rem;">Session
+                                Notes</label>
+                              <textarea id="notes-${s.id}" name="notes" rows="3"
+                                style="width:100%; padding:0.5rem;">${s.notes!""}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Notes</button>
+                          </form>
+                        </div>
+                      </#if>
 
-                <!-- Session 3 -->
-                <div style="padding: 1.5rem;">
-                  <div
-                    style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                    <p style="font-weight: 600;">Upper Body Strength</p>
-                    <p
-                      style="background: var(--success-light); color: var(--success-color); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
-                      ✓ Completed</p>
-                  </div>
-                  <p style="font-size: 0.9rem; color: #999; margin-bottom: 0.5rem;">June 17, 2026 • 6:00 PM - 7:00 PM
-                  </p>
-                  <p style="color: #666; font-size: 0.9rem;">Upper body work with modified overhead pressing. Excellent
-                    form improvement.</p>
-                </div>
-
+                    </div>
+                  </#list>
+                  <#else>
+                    <p>No sessions yet for this client.</p>
+                </#if>
               </div>
             </div>
-
           </div>
+
 
           <!-- Right Column - Actions & Notes -->
           <div>
-
-            <!-- Quick Stats -->
-            <div class="card" style="margin-bottom: 2rem;">
-              <div class="card-header">
-                <h2 style="font-size: 1.3rem; font-weight: 700;">Performance Stats</h2>
-              </div>
-              <div class="card-content">
-                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--light-gray);">
-                  <p style="color: #999; margin-bottom: 0.5rem;">Attendance Rate</p>
-                  <p style="font-size: 1.5rem; font-weight: 700; color: var(--success-color);">100%</p>
-                </div>
-                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--light-gray);">
-                  <p style="color: #999; margin-bottom: 0.5rem;">Average Rating</p>
-                  <p style="font-size: 1.5rem; font-weight: 700; color: var(--secondary-color);"> 5.0/5.0</p>
-                </div>
-                <div>
-                  <p style="color: #999; margin-bottom: 0.5rem;">Session Feedback</p>
-                  <p style="font-size: 0.9rem; color: #666;">Consistent, motivated, follows instructions</p>
-                </div>
-              </div>
-            </div>
 
             <!-- Next Session -->
             <div class="card" style="margin-bottom: 2rem;">
@@ -246,35 +190,15 @@
                 <div
                   style="background: var(--primary-dark); color: white; padding: 1.5rem; border-radius: var(--border-radius);">
                   <p style="opacity: 0.9; margin-bottom: 0.5rem; font-weight: 600;">Upcoming Session</p>
-                  <p style="font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem;">Friday, June 28 • 6:00 PM</p>
-                  <p style="opacity: 0.8; font-size: 0.9rem;">Strength Training Focus</p>
+                  <#if nextSession??>
+                    <p style="font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem;">
+                      ${nextSession.timeslot.startTime}</p>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">${nextSession.trainingService.name}</p>
+
+                    <#else>
+                      <p style="font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem;">No upcoming sessions</p>
+                  </#if>
                 </div>
-              </div>
-            </div>
-
-            <!-- Client Notes -->
-            <div class="card" style="margin-bottom: 2rem;">
-              <div class="card-header">
-                <h2 style="font-size: 1.3rem; font-weight: 700;">Training Notes</h2>
-              </div>
-              <div class="card-content">
-                <textarea placeholder="Add notes about client's progress, form feedback, or observations..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;">Client is showing great progress with compound lifts. Watch for excessive arching in bench press. Remind about back alignment during squats.</textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="saveNotes()">Save
-                  Notes</button>
-              </div>
-            </div>
-
-            <!-- Client Message -->
-            <div class="card" style="margin-bottom: 2rem;">
-              <div class="card-header">
-                <h2 style="font-size: 1.3rem; font-weight: 700;">Message Client</h2>
-              </div>
-              <div class="card-content">
-                <textarea placeholder="Type your message here..."
-                  style="width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #ddd; border-radius: var(--border-radius); font-family: inherit; resize: vertical;"></textarea>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" >Send
-                  Message</button>
               </div>
             </div>
 
@@ -285,9 +209,9 @@
               </div>
               <div class="card-content">
                 <p style="color: #999; margin-bottom: 0.5rem;">Current Status</p>
-                <p
-                  style="display: inline-block; background: var(--success-light); color: var(--success-color); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600;">
-                  🟢 Active</p>
+                <p style="font-weight: 600; font-size: 1.1rem;">
+                  ${client.accountStatus?cap_first}
+                </p>
               </div>
             </div>
 

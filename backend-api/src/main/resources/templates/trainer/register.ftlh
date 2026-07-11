@@ -14,138 +14,115 @@
 <body>
 
   <div class="container">
-  <!-- Navigation -->
-  <nav>
-    <div class="navbar">
-       <a href="/" class="navbar-brand"> <img src="/../images/logo.png" width="120" height="92"></a>
+    <!-- Navigation -->
+    <nav>
+      <div class="navbar">
+        <a href="/" class="navbar-brand"> <img src="/../images/logo.png" width="120" height="92"></a>
 
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/trainer/login" class="btn btn-outline">Login</a></li>
-      </ul>
-    </div>
-  </nav>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/trainer/login" class="btn btn-outline">Login</a></li>
+        </ul>
+      </div>
+    </nav>
 
-  <!-- Registration Section -->
-  <section class="section" style="padding: 3rem 2rem;">
-    <div class="container" style="max-width: 600px;">
-      <div class="card">
-        <div class="card-content">
-          <h2 class="text-center mb-2" style="font-weight: 700; font-size: 1.8rem;">Become a FitMatch Trainer</h2>
-          <p class="text-center text-muted mb-4">Register to offer training services and grow your client base</p>
+    <!-- Registration Section -->
+    <section class="section" style="padding: 3rem 2rem;">
+      <div class="container" style="max-width: 600px;">
+        <div class="card">
+          <div class="card-content">
+            <h2 class="text-center mb-2" style="font-weight: 700; font-size: 1.8rem;">Become a FitMatch Trainer</h2>
+            <p class="text-center text-muted mb-4">Register to offer training services and grow your client base</p>
 
-          <form id="providerForm">
-            <!-- Personal Information -->
-            <h3 style="font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-color);">Personal Information</h3>
+            <form id="providerForm" action="/trainer/signup" method="post" enctype="multipart/form-data">
+              <!-- Personal Information -->
+              <h3 style="font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-color);">
+                Personal Information</h3>
 
-            <div class="form-group">
-              <label for="firstName">First Name</label>
-              <input type="text" id="firstName" placeholder="Mike" required>
-            </div>
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" name="name" id="name" placeholder="Mike Stevens" required>
+              </div>
 
-            <div class="form-group">
-              <label for="lastName">Last Name</label>
-              <input type="text" id="lastName" placeholder="Johnson" required>
-            </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" placeholder="mike@example.com" required>
+              </div>
 
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" placeholder="mike@example.com" required>
-            </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone" id="phone" placeholder="(555) 123-4567" required>
+              </div>
 
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="text" id="phone" placeholder="(555) 123-4567" required>
-            </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="••••••••" required>
+              </div>
 
-            <!-- Professional Information -->
-            <h3 style="font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-color);">Professional Information</h3>
+              <div class="form-group">
+                <label for="profilePictureFile">Profile Picture</label>
+                <input type="file" name="profilePictureFile" id="profilePictureFile" accept="image/*">
+              </div>
 
-            <div class="form-group">
-              <label for="certifications">Certifications *</label>
-              <textarea id="certifications" placeholder="e.g., NASM Certified Personal Trainer, ACE Certification..." required style="min-height: 80px;"></textarea>
-            </div>
+              <!-- Professional Information -->
+              <h3 style="font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-color);">
+                Professional Information</h3>
 
-            <div class="form-group">
-              <label for="experience">Years of Experience *</label>
-              <input type="number" id="experience" placeholder="5" min="0" required>
-            </div>
+              <div class="form-group">
+                <label for="certifications">Certifications *</label>
+                <textarea id="certifications" name="certifications"
+                  placeholder="e.g., NASM Certified Personal Trainer, ACE Certification..." required
+                  style="min-height: 80px;"></textarea>
+              </div>
 
-            <div class="form-group">
-              <label for="specialties">Specialties *</label>
-              <textarea id="specialties" placeholder="e.g., Strength Training, Weight Loss, Rehabilitation..." required style="min-height: 80px;"></textarea>
-            </div>
+              <div class="form-group">
+                <label for="experience">Years of Experience *</label>
+                <input type="number" id="experience" name="yearsOfExperience" placeholder="5" min="0" required>
+              </div>
 
-            <div class="form-group">
-              <label for="bio">Professional Bio *</label>
-              <textarea id="bio" placeholder="Tell clients about your training philosophy and approach..." required style="min-height: 100px;"></textarea>
-            </div>
+              <div class="form-group">
+                <label for="specialties">Specialties *</label>
+                <textarea id="specialties" name="specialties"
+                  placeholder="e.g., Strength Training, Weight Loss, Rehabilitation..." required
+                  style="min-height: 80px;"></textarea>
+              </div>
 
-            <!-- Service Details -->
-            <h3 style="font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-color);">Service Details</h3>
+              <div class="form-group">
+                <label for="bio">Professional Bio *</label>
+                <textarea id="bio" name="biography"
+                  placeholder="Tell clients about your training philosophy and approach..." required
+                  style="min-height: 100px;"></textarea>
+              </div>
 
-            <div class="form-group">
-              <label for="rate">Hourly Rate ($) *</label>
-              <input type="number" id="rate" placeholder="60" min="0" step="5" required>
-            </div>
-
-            <div class="form-group">
-              <label>Availability *</label>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <label style="display: flex; align-items: center; margin: 0; font-weight: 500;">
-                  <input type="checkbox" style="width: auto; margin-right: 0.5rem;"> Morning (6-11 AM)
-                </label>
-                <label style="display: flex; align-items: center; margin: 0; font-weight: 500;">
-                  <input type="checkbox" style="width: auto; margin-right: 0.5rem;"> Afternoon (12-5 PM)
-                </label>
-                <label style="display: flex; align-items: center; margin: 0; font-weight: 500;">
-                  <input type="checkbox" style="width: auto; margin-right: 0.5rem;"> Evening (5-10 PM)
-                </label>
-                <label style="display: flex; align-items: center; margin: 0; font-weight: 500;">
-                  <input type="checkbox" style="width: auto; margin-right: 0.5rem;"> Weekends
+              <!-- Terms -->
+              <div class="form-group" style="margin-top: 1.5rem;">
+                <label style="display: flex; align-items: flex-start; margin: 0;">
+                  <input type="checkbox" id="terms" name="terms" required
+                    style="width: auto; margin-right: 0.5rem; margin-top: 0.25rem;">
+                  <span>I agree to the Terms of Service and commit to providing quality training</span>
                 </label>
               </div>
-            </div>
 
-            <!-- Terms -->
-            <div class="form-group" style="margin-top: 1.5rem;">
-              <label style="display: flex; align-items: flex-start; margin: 0;">
-                <input type="checkbox" id="terms" required style="width: auto; margin-right: 0.5rem; margin-top: 0.25rem;">
-                <span>I agree to the Terms of Service and commit to providing quality training</span>
-              </label>
-            </div>
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary btn-large" style="width: 100%; margin-top: 1.5rem;">
+                Create Trainer Account
+              </button>
 
-            <!-- Submit Button -->
-            <button type="button" class="btn btn-primary btn-large" onclick="registerProvider()" style="width: 100%; margin-top: 1.5rem;">
-              Create Trainer Account
-            </button>
-
-            <!-- Already has account -->
-            <p class="text-center mt-4">
-              Already have an account? <a href="/trainer/login" style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Login here</a>
-            </p>
-          </form>
+              <!-- Already has account -->
+              <p class="text-center mt-4">
+                Already have an account? <a href="/trainer/login"
+                  style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Login here</a>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 FitMatch. All rights reserved.</p>
-  </footer>
-
-  <script>
-    function registerProvider() {
-      const form = document.getElementById('providerForm');
-      if (form.checkValidity()) {
-        // Navigate to provider dashboard
-        window.location.href = '/trainer/dashboard';
-      } else {
-        alert('Please fill in all required fields');
-      }
-    }
-  </script>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 FitMatch. All rights reserved.</p>
+    </footer>
   </div>
 </body>
 

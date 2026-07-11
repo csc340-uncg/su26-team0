@@ -40,6 +40,10 @@ public class TrainingSessionService {
       existingSession.setTrainingService(trainingSession.getTrainingService());
       existingSession.setTimeslot(trainingSession.getTimeslot());
       existingSession.setStatus(trainingSession.getStatus());
+      existingSession.setNotes(trainingSession.getNotes());
+      existingSession.setLevel(trainingSession.getLevel());
+      existingSession.setLocation(trainingSession.getLocation());
+      return trainingSessionRepository.save(existingSession);
     }
     return trainingSessionRepository.save(trainingSession);
   }

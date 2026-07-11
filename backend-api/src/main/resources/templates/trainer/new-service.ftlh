@@ -33,32 +33,37 @@
           <div class="card-content">
             <h2 class="text-center mb-2" style="font-weight: 700; font-size: 1.8rem;">Add a new training service</h2>
             <p class="text-center text-muted mb-4">Register a new service to offer your client base</p>
-            <form id="newServiceForm">
+            <form id="newServiceForm" action="/trainer/services/add" method="post">
               <!-- Service Information -->
               <h3 style="font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-color);">
                 Service Information</h3>
 
               <div class="form-group">
                 <label for="serviceName">Service Name</label>
-                <input type="text" id="serviceName" placeholder="Strength Training Program" required>
+                <input type="text" id="serviceName" name="name" placeholder="Strength Training Program" required>
+              </div>
+
+              <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" required name="category">
+                  <option value="">Select a category</option>
+                  <option value="strength">Strength Training</option>
+                  <option value="cardio">Cardiovascular Training</option>
+                  <option value="flexibility">Flexibility Training</option>
+                </select>
               </div>
 
               <div class="form-group">
                 <label for="serviceDescription">Description</label>
-                <textarea id="serviceDescription" placeholder="Describe your training service..." required></textarea>
+                <textarea id="serviceDescription" name="description" placeholder="Describe your training service..."
+                  required></textarea>
               </div>
-
-              <div class="form-group">
-                <label for="serviceDuration">Duration (minutes)</label>
-                <input type="number" id="serviceDuration" placeholder="60" required>
-              </div>
-
               <div class="form-group">
                 <label for="servicePrice">Price ($)</label>
-                <input type="number" id="servicePrice" placeholder="50.00" step="0.01" required>
+                <input type="number" id="servicePrice" name="price" placeholder="50.00" step="0.01" required>
               </div>
 
-              <button  class="btn btn-primary" style="width: 100%;" onClick="window.location.href='manage-services.html'">Add Service</button>
+              <button class="btn btn-primary" style="width: 100%;" type="submit">Add Service</button>
             </form>
           </div>
         </div>

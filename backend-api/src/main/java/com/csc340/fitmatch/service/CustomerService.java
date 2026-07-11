@@ -1,11 +1,14 @@
 package com.csc340.fitmatch.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.csc340.fitmatch.entity.Customer;
+import com.csc340.fitmatch.entity.TrainingSession;
 import com.csc340.fitmatch.repository.CustomerRepository;
 import com.csc340.fitmatch.repository.ReviewRepository;
 import com.csc340.fitmatch.repository.TrainingSessionRepository;
@@ -104,6 +107,14 @@ public class CustomerService {
       trainingSessionRepository.deleteAll(trainingSessionRepository.findByCustomerId(id));
     }
     customerRepository.deleteById(id);
+  }
+
+  public List<Customer> getCustomersByTrainerId(Long trainerId) {
+    return trainingSessionRepository.findByTrainingServiceTrainerId(trainerId).stream()
+        .map(TrainingSession::getCustomer)
+        .filter(Objects::nonNull)
+        .distinct()
+        .collect(Collectors.toList());
   }
 
   public Customer findByEmail(String email) {

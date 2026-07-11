@@ -32,7 +32,7 @@
       <div class="container">
         <div class="grid grid-2" style="align-items: center;">
           <div>
-            <img class="card-img-top" src="../images/mike.jpg" style="width: 200px; height: 200px;" />
+            <img class="card-img-top" src="/trainer/picture/${trainer.id}" alt="${trainer.name!'Trainer'} profile picture" style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;" />
           </div>
           <div>
             <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; color: white;" id="trainer-name">

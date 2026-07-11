@@ -2,6 +2,8 @@ package com.csc340.fitmatch.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.JdbcTypeCode;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -9,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -37,6 +40,11 @@ public class Trainer {
 
   @Column(nullable = false)
   private String accountStatus;
+
+  @Lob
+  @JdbcTypeCode(java.sql.Types.BINARY)
+  @Column(columnDefinition = "bytea")
+  private byte[] profilePicture;
 
   @Column(columnDefinition = "TEXT")
   private String biography;

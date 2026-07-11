@@ -29,9 +29,10 @@
 
     <!-- Header -->
     <section class="section" style="background: var(--light-gray);">
-      <div class="container">
+      <div class="container" style="text-align: center;">
         <h1 style="font-size: 2rem; font-weight: 700;">My Trainer Profile</h1>
         <p class="text-muted">Manage how you appear to potential clients</p>
+        <img src="/trainer/picture/${trainer.id}" alt="${trainer.name!'Trainer'} profile photo" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; margin: 1rem auto 0; display: block;" />
       </div>
     </section>
 
@@ -47,23 +48,20 @@
           <div class="card-content">
             <div class="grid grid-2">
               <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;">First Name</p>
-                <p style="font-weight: 600;">Mike</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.25rem;">Last Name</p>
-                <p style="font-weight: 600;">Johnson</p>
+                <p class="text-muted" style="margin-bottom: 0.25rem;">Name</p>
+                <p style="font-weight: 600;">${trainer.name!""}</p>
               </div>
               <div>
                 <p class="text-muted" style="margin-bottom: 0.25rem;">Email</p>
-                <p style="font-weight: 600;">mike@example.com</p>
+                <p style="font-weight: 600;">${trainer.email!""}</p>
               </div>
               <div>
                 <p class="text-muted" style="margin-bottom: 0.25rem;">Phone</p>
-                <p style="font-weight: 600;">+1 (555) 123-4567</p>
+                <p style="font-weight: 600;">${trainer.phoneNumber!""}</p>
               </div>
             </div>
-            <button class="btn btn-outline" style="margin-top: 1rem;" onclick="window.location.href='edit-details.html'">Edit Personal Info</button>
+            <button class="btn btn-outline" onclick="window.location.href='/trainer/profile/edit'">Edit
+              Personal Info</button>
           </div>
         </div>
 
@@ -75,51 +73,28 @@
           <div class="card-content">
             <div style="margin-bottom: 1rem;">
               <p class="text-muted" style="margin-bottom: 0.5rem;"><strong>Certifications:</strong></p>
-              <p style="font-weight: 600; margin-bottom: 1rem;">NASM Certified Personal Trainer, ISSA Nutrition
-                Certification, TRX Suspension Training</p>
+              <p style="font-weight: 600; margin-bottom: 1rem;">${trainer.certifications!"Not provided"}</p>
 
               <p class="text-muted" style="margin-bottom: 0.5rem;"><strong>Years of Experience:</strong></p>
-              <p style="font-weight: 600; margin-bottom: 1rem;">8 years</p>
+              <p style="font-weight: 600; margin-bottom: 1rem;">${trainer.yearsOfExperience!"Not provided"} years</p>
 
               <p class="text-muted" style="margin-bottom: 0.5rem;"><strong>Specializations:</strong></p>
-              <p style="font-weight: 600; margin-bottom: 1rem;">Strength Training, Muscle Building, Powerlifting,
-                Athletic Performance</p>
+              <p style="font-weight: 600; margin-bottom: 1rem;">${trainer.specialties!"Not provided"}</p>
 
               <p class="text-muted" style="margin-bottom: 0.5rem;"><strong>Professional Bio:</strong></p>
-              <p style="font-weight: 600; margin-bottom: 1rem;">I'm passionate about helping clients build strength and
-                achieve their fitness goals through progressive training and proper nutrition. With 8 years of
-                experience and multiple certifications, I create personalized programs tailored to each client's needs
-                and preferences.</p>
+              <p style="font-weight: 600; margin-bottom: 1rem;">${trainer.biography!""}</p>
             </div>
-            <button class="btn btn-outline">Edit Professional Info</button>
+            <button class="btn btn-outline" onclick="window.location.href='/trainer/profile/edit'">Edit
+              Professional Info</button>
           </div>
         </div>
 
         <!-- Rates & Services Card -->
         <div class="card" style="margin-bottom: 2rem;">
           <div class="card-header">
-            <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700;">Rates & Services</h2>
-          </div>
-          <div class="card-content">
-            <div class="grid grid-2">
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;"><strong>Base Rate:</strong></p>
-                <p style="font-weight: 600;">$60/hour</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;"><strong>Package Discounts:</strong></p>
-                <p style="font-weight: 600;">10% off 5-pack, 15% off 10-pack</p>
-              </div>
-            </div>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--medium-gray);">
-              <p class="text-muted" style="margin-bottom: 0.5rem;"><strong>Active Services (3):</strong></p>
-              <ul style="margin: 0; padding-left: 1.5rem;">
-                <li style="margin-bottom: 0.5rem;"><strong>Strength Training Program</strong> - $60/session</li>
-                <li style="margin-bottom: 0.5rem;"><strong>Circuit Training & Conditioning</strong> - $45/session</li>
-                <li><strong>Personal Nutrition & Fitness Consultation</strong> - $40/session</li>
-              </ul>
-            </div>
-            <button class="btn btn-outline" style="margin-top: 1rem;" onclick="openServices()">Manage Services</button>
+            <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700;">Rates & Services <a href="/trainer/services"
+                class="btn btn-outline" style="margin-left: auto;">Manage Services</a></h2>
+
           </div>
         </div>
 
@@ -130,76 +105,23 @@
           </div>
           <div class="card-content">
             <div class="grid grid-2">
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Monday - Friday</p>
-                <p style="font-weight: 600;">6:00 AM - 8:00 PM</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Saturday</p>
-                <p style="font-weight: 600;">8:00 AM - 6:00 PM</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Sunday</p>
-                <p style="font-weight: 600;">Closed</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Vacation Days</p>
-                <p style="font-weight: 600;">None scheduled</p>
-              </div>
+              <#if availableTimeslots?has_content>
+                <#list availableTimeslots as ts>
+                  <div>
+                    <p class="text-muted" style="margin-bottom: 0.5rem;">${ts.startTime?datetime.iso?string["EEEE"]}</p>
+                    <p style="font-weight: 600;">${ts.startTime?datetime.iso?string('yyyy-MM-dd hh:mm a')} -
+                      ${ts.endTime?datetime.iso?string('yyyy-MM-dd hh:mm a')}</p>
+                  </div>
+                </#list>
+                <#else>
+                  <div>
+                    <p class="text-muted" style="margin-bottom: 0.5rem;">No availability</p>
+                    <p style="font-weight: 600;">You have no available timeslots scheduled.</p>
+                  </div>
+              </#if>
             </div>
-            <button class="btn btn-outline" style="margin-top: 1rem;">Edit Availability</button>
-          </div>
-        </div>
-
-        <!-- Profile Visibility Card -->
-        <div class="card" style="margin-bottom: 2rem;">
-          <div class="card-header">
-            <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700;">Profile Visibility</h2>
-          </div>
-          <div class="card-content">
-            <div style="margin-bottom: 1rem;">
-              <label style="display: flex; align-items: center; margin: 0; font-weight: 600;">
-                <input type="radio" name="visibility" value="visible" checked
-                  style="width: auto; margin-right: 0.75rem;"> Visible to all customers
-              </label>
-              <p class="text-muted" style="margin: 0.5rem 0 1rem 2rem; font-size: 0.9rem;">Customers can find and book
-                your services</p>
-            </div>
-            <div>
-              <label style="display: flex; align-items: center; margin: 0; font-weight: 600;">
-                <input type="radio" name="visibility" value="hidden" style="width: auto; margin-right: 0.75rem;"> Hidden
-                from searches
-              </label>
-              <p class="text-muted" style="margin: 0.5rem 0 0 2rem; font-size: 0.9rem;">Only existing clients can book
-                sessions</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Statistics Card -->
-        <div class="card" style="margin-bottom: 2rem;">
-          <div class="card-header">
-            <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700;">Profile Statistics</h2>
-          </div>
-          <div class="card-content">
-            <div class="grid grid-2">
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Profile Views (Month)</p>
-                <p style="font-weight: 600; font-size: 1.3rem;">156</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Overall Rating</p>
-                <p style="font-weight: 600; font-size: 1.3rem;">4.9/5 ⭐</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Total Reviews</p>
-                <p style="font-weight: 600; font-size: 1.3rem;">48</p>
-              </div>
-              <div>
-                <p class="text-muted" style="margin-bottom: 0.5rem;">Response Rate</p>
-                <p style="font-weight: 600; font-size: 1.3rem;">98%</p>
-              </div>
-            </div>
+            <a href="/trainer/timeslots/new" class="btn btn-outline" style="margin-left: auto;">Add Availability
+              Timeslot </a>
           </div>
         </div>
 
@@ -209,18 +131,13 @@
             <h2 style="margin: 0; font-size: 1.3rem; font-weight: 700;">Account Settings</h2>
           </div>
           <div class="card-content">
-            <button class="btn btn-outline" onclick="alert('Change password clicked')"
-              style="width: 100%; text-align: left; padding: 0.75rem 1rem; margin-bottom: 0.5rem;">Change
-              Password</button>
-            <button class="btn btn-outline" onclick="alert('Notification settings clicked')"
-              style="width: 100%; text-align: left; padding: 0.75rem 1rem; margin-bottom: 0.5rem;">Notification
-              Settings</button>
-            <button class="btn btn-outline" onclick="alert('Payout settings clicked')"
-              style="width: 100%; text-align: left; padding: 0.75rem 1rem; margin-bottom: 0.5rem;">💳 Payout
-              Settings</button>
-            <button class="btn btn-outline" onclick="alert('Delete account - account will be deleted')"
-              style="width: 100%; text-align: left; padding: 0.75rem 1rem; color: var(--danger-color); border-color: var(--danger-color);">Delete
-              Account</button>
+            <a class="btn btn-outline"
+              style="width: 100%; text-align: left; padding: 0.75rem 1rem; margin-bottom: 0.5rem;"
+              href="/trainer/profile/edit">Edit Personal Info</a>
+            <a class="btn btn-outline"
+              style="width: 100%; text-align: left; padding: 0.75rem 1rem; color: var(--danger-color); border-color: var(--danger-color);"
+              href="/trainer/delete" onclick="return confirm('Are you sure you want to delete your account?')">Delete
+              Account </a>
           </div>
         </div>
 
@@ -234,7 +151,7 @@
   </div>
   <script>
 
-    function openServices(){
+    function openServices() {
       window.location.href = '/trainer/services';
     }
   </script>

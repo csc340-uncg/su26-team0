@@ -67,11 +67,10 @@ public class CustomerUiController {
 
   @PostMapping("/signup")
   public String registerCustomer(Customer customer, HttpSession session) {
-    System.out.println(customer.toString());
     customer.setAccountStatus("active");
     Customer created = customerService.createCustomer(customer);
     session.setAttribute("customerId", created.getId());
-    return "redirect:/customer/browse";
+    return "redirect:/customer/profile";
   }
 
   @GetMapping("/login")
@@ -84,10 +83,17 @@ public class CustomerUiController {
     Customer customer = customerService.findByEmail(email);
     if (customer != null && password.equals(customer.getPassword())) {
       session.setAttribute("customerId", customer.getId());
-      return "redirect:/customer/sessions";
+      return "redirect:/customer/browse";
     }
     return "redirect:/customer/login";
   }
+
+  @GetMapping("/logout")
+  public String logout(HttpSession session) {
+    session.invalidate();
+    return "redirect:/customer/login";
+  }
+
 
   @GetMapping("/browse")
   public String browse(Model model, HttpSession session) {
@@ -149,7 +155,7 @@ public class CustomerUiController {
     List<Timeslot> timeslots = timeslotService.getAvailableTimeslotsByTrainerId(trainerId);
     model.addAttribute("trainer", trainer);
     model.addAttribute("timeslots", timeslots);
-    model.addAttribute("services", trainingServiceService.getTrainingServicesByTrainerId(trainerId));
+    model.addAttribute("services", trainingServiceService.getActiveTrainingServicesByTrainerId(trainerId));
     return "customer/book-session";
   }
 

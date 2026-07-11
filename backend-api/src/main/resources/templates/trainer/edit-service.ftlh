@@ -33,32 +33,37 @@
           <div class="card-content">
             <h2 class="text-center mb-2" style="font-weight: 700; font-size: 1.8rem;">Edit Training Service</h2>
             <p class="text-center text-muted mb-4">Update the details of your training service</p>
-            <form id="editServiceForm">
+            <form id="editServiceForm" action="/trainer/services/${service.id}/edit" method="post">
               <!-- Service Information -->
               <h3 style="font-weight: 700; margin-top: 1.5rem; margin-bottom: 1rem; color: var(--primary-color);">
                 Service Information</h3>
 
               <div class="form-group">
                 <label for="serviceName">Service Name</label>
-                <input type="text" id="serviceName" placeholder="Strength Training Program" required>
+                <input type="text" id="serviceName" name="name" value="${service.name}" required>
               </div>
               <div class="form-group">
                 <label for="serviceDescription">Description</label>
-                <textarea id="serviceDescription" placeholder="Describe your training service..." required></textarea>
+                <textarea id="serviceDescription" name="description" placeholder="Describe your training service..."
+                  required>${service.description}</textarea>
               </div>
               <div class="form-group">
-                <label for="serviceDuration">Duration (minutes)</label>
-                <input type="number" id="serviceDuration" placeholder="60" required>
+                <label for="category">Category</label>
+                <select id="category" required name="category">
+                  <option value="">Select a category</option>
+                  <option value="strength">Strength Training</option>
+                  <option value="cardio">Cardiovascular Training</option>
+                  <option value="flexibility">Flexibility Training</option>
+                </select>
               </div>
-              <div class="form-group
-">
+              <div class="form-group">
                 <label for="servicePrice">Price ($)</label>
-                <input type="number" id="servicePrice" placeholder="50.00" step="0.01" required>
+                <input type="number" id="servicePrice" name="price" value="${service.price}" placeholder="50.00"
+                  step="0.01" required>
               </div>
               <div class="form-group
 ">
-                <button  class="btn btn-primary" style="width: 100%;"
-                  onClick="window.location.href='manage-services.html'">Save Changes</button>
+                <button class="btn btn-primary" style="width: 100%;" type="submit">Save Changes</button>
               </div>
             </form>
           </div>

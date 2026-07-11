@@ -30,32 +30,66 @@
     <!-- Header -->
     <section class="section" style="background: var(--light-gray);">
       <div class="container">
-        <h1 style="font-size: 2rem; font-weight: 700;">Edit Personal Information</h1>
-        <p class="text-muted">Update your personal details below</p>
+        <h1 style="font-size: 2rem; font-weight: 700;">Edit Profile</h1>
+        <p class="text-muted">Update your personal and professional details below</p>
       </div>
     </section>
+
     <section class="section">
-      <div class="container" style="max-width: 600px;">
-        <div class="card">
-          <div class="card-content">
-            <form id="editDetailsForm">
+      <div class="container" style="max-width: 900px; display: flex; gap: 1rem;">
+        <div class="card" style="flex:1;">
+          <div class="card-header"><h3 style="margin:0;">Personal Info</h3></div>
+          <div class="card-content" style="padding:1rem;">
+            <form method="post" action="/trainer/profile/edit" enctype="multipart/form-data">
               <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" placeholder="Mike" required>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" class="form-control" value="${trainer.name!''}" required />
               </div>
-              <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" placeholder="Johnson" required>
-              </div>
-              <div class="form-group">
+              <div class="form-group" style="margin-top:0.75rem;">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="mike@example.com" required>
+                <input type="email" id="email" name="email" class="form-control" value="${trainer.email!''}" required />
+              </div>
+              <div class="form-group" style="margin-top:0.75rem;">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" />
+                <small class="text-muted">Leave blank to keep current password</small>
               </div>
               <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" placeholder="+1 (555) 123-4567" required>
+                <label for="profilePictureFile">Profile Picture</label>
+                <input type="file" name="profilePictureFile" id="profilePictureFile" accept="image/*">
               </div>
-              <button onClick="window.location.href='profile.html'" class="btn btn-primary">Save Changes</button>
+              <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                <button type="submit" class="btn btn-primary">Save Personal Info</button>
+                <a class="btn btn-outline" href="/trainer/profile">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card" style="flex:1;">
+          <div class="card-header"><h3 style="margin:0;">Professional Info</h3></div>
+          <div class="card-content" style="padding:1rem;">
+            <form method="post" action="/trainer/professional/edit">
+              <div class="form-group">
+                <label for="biography">Professional Bio</label>
+                <textarea id="biography" name="biography" class="form-control" rows="4">${trainer.biography!''}</textarea>
+              </div>
+              <div class="form-group" style="margin-top:0.75rem;">
+                <label for="certifications">Certifications</label>
+                <input type="text" id="certifications" name="certifications" class="form-control" value="${trainer.certifications!''}" />
+              </div>
+              <div class="form-group" style="margin-top:0.75rem;">
+                <label for="specialties">Specialties</label>
+                <input type="text" id="specialties" name="specialties" class="form-control" value="${trainer.specialties!''}" />
+              </div>
+              <div class="form-group" style="margin-top:0.75rem;">
+                <label for="yearsOfExperience">Years of Experience</label>
+                <input type="number" id="yearsOfExperience" name="yearsOfExperience" class="form-control" value="${trainer.yearsOfExperience!''}" min="0" />
+              </div>
+              <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                <button type="submit" class="btn btn-primary">Save Professional Info</button>
+                <a class="btn btn-outline" href="/trainer/profile">Cancel</a>
+              </div>
             </form>
           </div>
         </div>

@@ -48,45 +48,27 @@
         <h2 class="text-center" style="font-size: 2.5rem; margin-bottom: 3rem; font-weight: 700;">Expert Trainers
         </h2>
         <div class="grid grid-3">
-
-          <!-- Trainer Card 1 -->
-          <div class="trainer-card">
-            <div class="trainer-image">
-              <img class="card-img-top" src="images/mike.jpg" height="220px" />
-            </div>
-            <div class="trainer-info">
-              <h3 class="trainer-name">Mike Johnson</h3>
-              <p class="trainer-specialty">Strength Training & Conditioning</p>
-              <div class="trainer-rating">4.9 / 5.0 (48 reviews)</div>
-              <div class="trainer-bio">NASM Certified. 8 years experience specializing in strength gains and muscle
-                building.</div>
-            </div>
-          </div>
-
-          <!-- Trainer Card 2 -->
-          <div class="trainer-card">
-            <div class="trainer-image"> <img class="card-img-top" src="images/sarah.jpg" height="220px" /></div>
-            <div class="trainer-info">
-              <h3 class="trainer-name">Sarah Chen</h3>
-              <p class="trainer-specialty">Flexibility, Yoga & Mobility</p>
-              <div class="trainer-rating">4.8 / 5.0 (52 reviews)</div>
-              <div class="trainer-bio">Certified Yoga Instructor & Physical Therapist. Expert in injury recovery and
-                flexibility training.</div>
-            </div>
-          </div>
-
-          <!-- Trainer Card 3 -->
-          <div class="trainer-card">
-            <div class="trainer-image"> <img class="card-img-top" src="images/david.jpg" height="220px" /></div>
-            <div class="trainer-info">
-              <h3 class="trainer-name">David Martinez</h3>
-              <p class="trainer-specialty">Weight Loss & Cardio</p>
-              <div class="trainer-rating">4.7 / 5.0 (36 reviews)</div>
-              <div class="trainer-bio">ACE Certified Personal Trainer. 5 years helping clients achieve sustainable
-                weight
-                loss.</div>
-            </div>
-          </div>
+          <#if highlightedTrainers?has_content>
+            <#list highlightedTrainers as t>
+              <div class="trainer-card">
+                <div class="trainer-image">
+                  <img class="card-img-top" src="/trainer/picture/${t.id}" height="220px" />
+                </div>
+                <div class="trainer-info">
+                  <h3 class="trainer-name">${t.name}</h3>
+                  <p class="trainer-specialty">${t.specialties!"General Fitness"}</p>
+                  <div class="trainer-rating">${t.yearsOfExperience!""} years experience</div>
+                  <div class="trainer-bio">${t.biography!''}</div>
+                </div>
+              </div>
+            </#list>
+            <#else>
+              <div class="trainer-card">
+                <div class="trainer-info">
+                  <p class="text-muted">No trainers available right now.</p>
+                </div>
+              </div>
+          </#if>
         </div>
       </div>
     </section>

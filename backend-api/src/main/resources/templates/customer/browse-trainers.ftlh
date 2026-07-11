@@ -95,6 +95,9 @@
           <div class="grid grid-3" style="margin-bottom: 2rem;">
             <#list specialtyMatches as trainer>
               <div class="trainer-card recommended-trainer">
+                <div class="trainer-image">
+                  <img class="card-img-top" src="/trainer/picture/${trainer.id}" alt="${trainer.name!'Trainer'} profile picture" style="width: 100%; max-height: 190px; object-fit: cover; border-radius: 0.75rem;" />
+                </div>
                 <div class="trainer-info">
                   <span class="badge bg-success" style="margin-bottom: 0.75rem; display: inline-block;">Recommended</span>
                   <h3 class="trainer-name">${trainer.name!'Trainer'}</h3>
@@ -114,6 +117,9 @@
           <div class="grid grid-3">
             <#list trainers as trainer>
               <div class="trainer-card<#if recommendedTrainer?? && recommendedTrainer.id == trainer.id> recommended-trainer</#if>">
+                <div class="trainer-image">
+                  <img class="card-img-top" src="/trainer/picture/${trainer.id}" alt="${trainer.name!'Trainer'} profile picture" style="width: 100%; max-height: 190px; object-fit: cover; border-radius: 0.75rem;" />
+                </div>
                 <div class="trainer-info">
                   <h3 class="trainer-name">${trainer.name!'Trainer'}</h3>
                   <p class="trainer-specialty">${trainer.specialties!'Specialized coaching'}</p>
