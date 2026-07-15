@@ -78,7 +78,7 @@ public class TrainerService {
       if (updatedTrainer.getPassword() != null && !updatedTrainer.getPassword().trim().isEmpty()) {
         trainer.setPassword(updatedTrainer.getPassword());
       }
-      if (updatedTrainer.getProfilePicture() != null && updatedTrainer.getProfilePicture().length > 0) {
+      if (updatedTrainer.getProfilePicture() != null ) {
         trainer.setProfilePicture(updatedTrainer.getProfilePicture());
       }
       return trainerRepository.save(trainer);

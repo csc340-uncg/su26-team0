@@ -1,5 +1,6 @@
 package com.csc340.fitmatch.entity;
 
+import java.sql.Blob;
 import java.util.List;
 
 import org.hibernate.annotations.JdbcTypeCode;
@@ -47,7 +48,7 @@ public class Trainer {
   @JdbcTypeCode(java.sql.Types.BINARY)
   @Column(columnDefinition = "bytea")
   @Basic(fetch = FetchType.LAZY)
-  private byte[] profilePicture;
+  private Blob profilePicture;
 
   @Column(columnDefinition = "TEXT")
   private String biography;

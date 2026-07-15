@@ -3,6 +3,8 @@ package com.csc340.fitmatch.mvc;
 import java.util.List;
 import java.util.Comparator;
 import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -12,6 +14,7 @@ import com.csc340.fitmatch.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
 
+import org.hibernate.engine.jdbc.proxy.BlobProxy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -69,7 +73,8 @@ public class TrainerUiController {
   public String registerTrainer(Trainer trainer, MultipartFile profilePictureFile, HttpSession session) {
     if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
       try {
-        trainer.setProfilePicture(profilePictureFile.getBytes());
+        trainer.setProfilePicture(
+            BlobProxy.generateProxy(profilePictureFile.getInputStream(), profilePictureFile.getSize()));
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -102,20 +107,32 @@ public class TrainerUiController {
   }
 
   @GetMapping("/picture/{trainerId}")
-  public ResponseEntity<byte[]> streamTrainerImage(@PathVariable Long trainerId) {
+  public ResponseEntity<StreamingResponseBody> streamTrainerImage(@PathVariable Long trainerId) {
     Trainer trainer = trainerService.findById(trainerId);
-    if (trainer != null && trainer.getProfilePicture() != null && trainer.getProfilePicture().length > 0) {
-      return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(trainer.getProfilePicture());
+    if (trainer != null && trainer.getProfilePicture() != null) {
+      Blob blob = trainer.getProfilePicture();
+      StreamingResponseBody stream = outputStream -> {
+        try {
+          StreamUtils.copy(blob.getBinaryStream(), outputStream);
+        } catch (IOException e) {
+          e.printStackTrace();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      };
+      return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(stream);
     }
 
-    try {
-      ClassPathResource defaultImage = new ClassPathResource("static/images/david.jpg");
-      byte[] imageBytes = StreamUtils.copyToByteArray(defaultImage.getInputStream());
-      return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
-    } catch (IOException e) {
-      e.printStackTrace();
-      return ResponseEntity.notFound().build();
-    }
+    // Return a default image if the trainer or profile picture is not found
+    ClassPathResource defaultImage = new ClassPathResource("static/images/trainer-default.jpg");
+    StreamingResponseBody stream = outputStream -> {
+      try {
+        StreamUtils.copy(defaultImage.getInputStream(), outputStream);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    };
+    return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(stream);
   }
 
   @GetMapping("/dashboard")
@@ -350,7 +367,8 @@ public class TrainerUiController {
     }
     if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
       try {
-        trainer.setProfilePicture(profilePictureFile.getBytes());
+        trainer.setProfilePicture(
+            BlobProxy.generateProxy(profilePictureFile.getInputStream(), profilePictureFile.getSize()));
       } catch (IOException e) {
         e.printStackTrace();
       }
