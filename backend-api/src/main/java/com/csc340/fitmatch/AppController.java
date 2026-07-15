@@ -21,10 +21,8 @@ public class AppController {
 
   @GetMapping({ "", "/", "/index" })
   public String homePage(Model model) {
-    // pick up to 3 highlighted trainers (fallback to first 3)
-    List<Trainer> highlighted = trainerService.getAllTrainers().stream()
-        .limit(3)
-        .collect(Collectors.toList());
+    List<Trainer> allTrainers = trainerService.getAllTrainers();
+    List<Trainer> highlighted = allTrainers.subList(0, Math.min(3, allTrainers.size()));
     model.addAttribute("highlightedTrainers", highlighted);
     return "index";
   }

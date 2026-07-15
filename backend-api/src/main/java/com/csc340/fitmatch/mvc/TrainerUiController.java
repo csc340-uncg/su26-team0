@@ -3,6 +3,7 @@ package com.csc340.fitmatch.mvc;
 import java.util.List;
 import java.util.Comparator;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -11,11 +12,10 @@ import com.csc340.fitmatch.dto.TrainerStatistics;
 import com.csc340.fitmatch.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
-
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,15 +49,18 @@ public class TrainerUiController {
   private final TrainingSessionService trainingSessionService;
   private final TimeslotService timeslotService;
 
+  private final TransactionTemplate transactionTemplate;
+
   public TrainerUiController(TrainerService trainerService, TrainingServiceService trainingServiceService,
       ReviewService reviewService, CustomerService customerService, TrainingSessionService trainingSessionService,
-      TimeslotService timeslotService) {
+      TimeslotService timeslotService, TransactionTemplate transactionTemplate) {
     this.trainerService = trainerService;
     this.trainingServiceService = trainingServiceService;
     this.reviewService = reviewService;
     this.customerService = customerService;
     this.trainingSessionService = trainingSessionService;
     this.timeslotService = timeslotService;
+    this.transactionTemplate = transactionTemplate;
   }
 
   @GetMapping("/register")
@@ -67,15 +71,13 @@ public class TrainerUiController {
 
   @PostMapping("/signup")
   public String registerTrainer(Trainer trainer, MultipartFile profilePictureFile, HttpSession session) {
-    if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
-      try {
-        trainer.setProfilePicture(profilePictureFile.getBytes());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
     trainer.setAccountStatus("active");
     Trainer created = trainerService.createTrainer(trainer);
+    try {
+      trainerService.saveTrainerProfilePicture(created.getId(), profilePictureFile.getInputStream());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     session.setAttribute("trainerId", created.getId());
     return "redirect:/trainer/dashboard";
   }
@@ -102,20 +104,23 @@ public class TrainerUiController {
   }
 
   @GetMapping("/picture/{trainerId}")
-  public ResponseEntity<byte[]> streamTrainerImage(@PathVariable Long trainerId) {
-    Trainer trainer = trainerService.findById(trainerId);
-    if (trainer != null && trainer.getProfilePicture() != null && trainer.getProfilePicture().length > 0) {
-      return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(trainer.getProfilePicture());
-    }
+  public ResponseEntity<StreamingResponseBody> streamTrainerImage(@PathVariable Long trainerId) {
 
-    try {
-      ClassPathResource defaultImage = new ClassPathResource("static/images/david.jpg");
-      byte[] imageBytes = StreamUtils.copyToByteArray(defaultImage.getInputStream());
-      return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
-    } catch (IOException e) {
-      e.printStackTrace();
-      return ResponseEntity.notFound().build();
-    }
+    StreamingResponseBody stream = outputStream -> {
+      // 2. Execute the database read AND the stream copy inside the transaction
+      transactionTemplate.execute(status -> {
+        try (InputStream imageStream = trainerService.getTrainerImageStreamInsideTx(trainerId)) {
+          StreamUtils.copy(imageStream, outputStream);
+          outputStream.flush();
+        } catch (Exception e) {
+          e.printStackTrace();
+          throw new RuntimeException("Streaming failed", e);
+        }
+        return null;
+      });
+    };
+
+    return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(stream);
   }
 
   @GetMapping("/dashboard")
@@ -350,7 +355,7 @@ public class TrainerUiController {
     }
     if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
       try {
-        trainer.setProfilePicture(profilePictureFile.getBytes());
+        trainerService.saveTrainerProfilePicture(trainerId, profilePictureFile.getInputStream());
       } catch (IOException e) {
         e.printStackTrace();
       }
