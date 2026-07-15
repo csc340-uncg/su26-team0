@@ -1,11 +1,15 @@
 package com.csc340.fitmatch.service;
 
+import java.sql.Blob;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.csc340.fitmatch.dto.TrainerStatistics;
 import com.csc340.fitmatch.entity.Review;
@@ -78,7 +82,7 @@ public class TrainerService {
       if (updatedTrainer.getPassword() != null && !updatedTrainer.getPassword().trim().isEmpty()) {
         trainer.setPassword(updatedTrainer.getPassword());
       }
-      if (updatedTrainer.getProfilePicture() != null ) {
+      if (updatedTrainer.getProfilePicture() != null) {
         trainer.setProfilePicture(updatedTrainer.getProfilePicture());
       }
       return trainerRepository.save(trainer);
@@ -144,6 +148,33 @@ public class TrainerService {
 
   public List<Trainer> findBySpecialty(String specialty) {
     return trainerRepository.findBySpecialtiesContainingIgnoreCase(specialty);
+  }
+
+public InputStream getTrainerImageStreamInsideTx(Long trainerId) {
+        Trainer trainer = trainerRepository.findById(trainerId).orElse(null);
+        try {
+            if (trainer != null && trainer.getProfilePicture() != null) {
+                return trainer.getProfilePicture().getBinaryStream();
+            } else {
+                ClassPathResource defaultImage = new ClassPathResource("static/images/trainer-default.jpg");
+                return defaultImage.getInputStream();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error retrieving profile picture for trainer with id: " + trainerId, e);
+        }
+    }
+
+  @Transactional
+  public void saveTrainerProfilePicture(Long trainerId, InputStream profilePictureStream) {
+    Trainer trainer = trainerRepository.findById(trainerId)
+        .orElseThrow(() -> new RuntimeException("Trainer not found with id: " + trainerId));
+    try {
+      Blob profilePictureBlob = new javax.sql.rowset.serial.SerialBlob(profilePictureStream.readAllBytes());
+      trainer.setProfilePicture(profilePictureBlob);
+      trainerRepository.save(trainer);
+    } catch (Exception e) {
+      throw new RuntimeException("Error saving profile picture for trainer with id: " + trainerId, e);
+    }
   }
 
   public TrainerStatistics getTrainerStatistics(Long trainerId) {

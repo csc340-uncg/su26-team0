@@ -3,8 +3,7 @@ package com.csc340.fitmatch.mvc;
 import java.util.List;
 import java.util.Comparator;
 import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
@@ -13,12 +12,10 @@ import com.csc340.fitmatch.dto.TrainerStatistics;
 import com.csc340.fitmatch.service.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
-
-import org.hibernate.engine.jdbc.proxy.BlobProxy;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.ui.Model;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,15 +49,18 @@ public class TrainerUiController {
   private final TrainingSessionService trainingSessionService;
   private final TimeslotService timeslotService;
 
+  private final TransactionTemplate transactionTemplate;
+
   public TrainerUiController(TrainerService trainerService, TrainingServiceService trainingServiceService,
       ReviewService reviewService, CustomerService customerService, TrainingSessionService trainingSessionService,
-      TimeslotService timeslotService) {
+      TimeslotService timeslotService, TransactionTemplate transactionTemplate) {
     this.trainerService = trainerService;
     this.trainingServiceService = trainingServiceService;
     this.reviewService = reviewService;
     this.customerService = customerService;
     this.trainingSessionService = trainingSessionService;
     this.timeslotService = timeslotService;
+    this.transactionTemplate = transactionTemplate;
   }
 
   @GetMapping("/register")
@@ -71,16 +71,13 @@ public class TrainerUiController {
 
   @PostMapping("/signup")
   public String registerTrainer(Trainer trainer, MultipartFile profilePictureFile, HttpSession session) {
-    if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
-      try {
-        trainer.setProfilePicture(
-            BlobProxy.generateProxy(profilePictureFile.getInputStream(), profilePictureFile.getSize()));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
     trainer.setAccountStatus("active");
     Trainer created = trainerService.createTrainer(trainer);
+    try {
+      trainerService.saveTrainerProfilePicture(created.getId(), profilePictureFile.getInputStream());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     session.setAttribute("trainerId", created.getId());
     return "redirect:/trainer/dashboard";
   }
@@ -108,30 +105,21 @@ public class TrainerUiController {
 
   @GetMapping("/picture/{trainerId}")
   public ResponseEntity<StreamingResponseBody> streamTrainerImage(@PathVariable Long trainerId) {
-    Trainer trainer = trainerService.findById(trainerId);
-    if (trainer != null && trainer.getProfilePicture() != null) {
-      Blob blob = trainer.getProfilePicture();
-      StreamingResponseBody stream = outputStream -> {
-        try {
-          StreamUtils.copy(blob.getBinaryStream(), outputStream);
-        } catch (IOException e) {
-          e.printStackTrace();
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-      };
-      return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(stream);
-    }
 
-    // Return a default image if the trainer or profile picture is not found
-    ClassPathResource defaultImage = new ClassPathResource("static/images/trainer-default.jpg");
     StreamingResponseBody stream = outputStream -> {
-      try {
-        StreamUtils.copy(defaultImage.getInputStream(), outputStream);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      // 2. Execute the database read AND the stream copy inside the transaction
+      transactionTemplate.execute(status -> {
+        try (InputStream imageStream = trainerService.getTrainerImageStreamInsideTx(trainerId)) {
+          StreamUtils.copy(imageStream, outputStream);
+          outputStream.flush();
+        } catch (Exception e) {
+          e.printStackTrace();
+          throw new RuntimeException("Streaming failed", e);
+        }
+        return null;
+      });
     };
+
     return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(stream);
   }
 
@@ -367,8 +355,7 @@ public class TrainerUiController {
     }
     if (profilePictureFile != null && !profilePictureFile.isEmpty()) {
       try {
-        trainer.setProfilePicture(
-            BlobProxy.generateProxy(profilePictureFile.getInputStream(), profilePictureFile.getSize()));
+        trainerService.saveTrainerProfilePicture(trainerId, profilePictureFile.getInputStream());
       } catch (IOException e) {
         e.printStackTrace();
       }
