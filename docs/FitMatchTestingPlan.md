@@ -89,7 +89,7 @@
 
 **Scenario S2:** Farmer cannot edit customer's review
 
-- **Setup:**Trainer logs in, customer has written a critical review for a session.
+- **Setup:** Trainer logs in, customer has written a critical review for a session.
 - **Steps:**
   1. Trainer logs in.
   2. Views the customer's review.
