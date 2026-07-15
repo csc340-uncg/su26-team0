@@ -174,6 +174,47 @@ class MvcControllersTest {
   }
 
   @Test
+  void browsePageFiltersTrainersByServiceCategoryOrName() {
+    CustomerService customerService = mock(CustomerService.class);
+    TrainerService trainerService = mock(TrainerService.class);
+    TrainingSessionService trainingSessionService = mock(TrainingSessionService.class);
+    TrainingServiceService trainingServiceService = mock(TrainingServiceService.class);
+    TimeslotService timeslotService = mock(TimeslotService.class);
+
+    CustomerUiController controller = new CustomerUiController(customerService, trainerService,
+        trainingSessionService, trainingServiceService, timeslotService);
+
+    Customer customer = new Customer();
+    customer.setId(1L);
+    customer.setFitnessGoals("Weight loss");
+
+    Trainer trainer = new Trainer();
+    trainer.setId(4L);
+    trainer.setName("Alicia Brooks");
+
+    TrainingService service = new TrainingService();
+    service.setId(11L);
+    service.setName("Strength Coaching");
+    service.setCategory("Strength Training");
+    service.setTrainer(trainer);
+
+    when(customerService.getCustomerById(1L)).thenReturn(Optional.of(customer));
+    when(trainerService.getAllTrainers()).thenReturn(List.of(trainer));
+    when(trainingServiceService.searchTrainingServicesByName("strength")).thenReturn(List.of(service));
+    when(trainingServiceService.getTrainingServicesByCategory("strength")).thenReturn(List.of());
+
+    ExtendedModelMap model = new ExtendedModelMap();
+    MockHttpSession httpSession = new MockHttpSession();
+    httpSession.setAttribute("customerId", 1L);
+
+    String viewName = controller.browse(model, httpSession, "strength");
+
+    assertEquals("customer/browse-trainers", viewName);
+    assertEquals(List.of(trainer), model.getAttribute("trainers"));
+    assertEquals("strength", model.getAttribute("activeSearch"));
+  }
+
+  @Test
   void bookingPagePopulatesTrainerAndAvailableTimeslots() {
     CustomerService customerService = mock(CustomerService.class);
     TrainerService trainerService = mock(TrainerService.class);

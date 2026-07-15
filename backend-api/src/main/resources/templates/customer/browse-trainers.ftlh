@@ -43,40 +43,16 @@
         <div
           style="background: white; padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow); margin-bottom: 2rem;">
           <h3 style="font-weight: 700; margin-bottom: 1rem;">Filter Trainers</h3>
-          <div class="grid grid-4" style="gap: 1rem;">
+          <form method="get" action="/customer/browse/search" class="grid grid-4" style="gap: 1rem;">
             <div>
-              <label style="margin-bottom: 0.5rem;">Specialization</label>
-              <select style="width: 100%;">
-                <option>All Specialties</option>
-                <option>Strength Training</option>
-                <option>Weight Loss</option>
-                <option>Flexibility</option>
-                <option>Rehabilitation</option>
-                <option>Cardio</option>
-              </select>
-            </div>
-            <div>
-              <label style="margin-bottom: 0.5rem;">Availability</label>
-              <select style="width: 100%;">
-                <option>Any Time</option>
-                <option>Morning (6-11 AM)</option>
-                <option>Afternoon (12-5 PM)</option>
-                <option>Evening (5-10 PM)</option>
-              </select>
-            </div>
-            <div>
-              <label style="margin-bottom: 0.5rem;">Minimum Rating</label>
-              <select style="width: 100%;">
-                <option>Any Rating</option>
-                <option>4.8+ Stars</option>
-                <option>4.5+ Stars</option>
-                <option>4.0+ Stars</option>
-              </select>
+              <label for="search" style="margin-bottom: 0.5rem;">Search by category or service name</label>
+              <input id="search" name="query" type="text" value="${activeSearch!''}"
+                placeholder="Try Strength Training, Weight Loss, or Yoga" style="width: 100%;">
             </div>
             <div style="display: flex; align-items: flex-end;">
-              <button class="btn btn-primary" style="width: 100%;">Apply Filters</button>
+              <button class="btn btn-primary" style="width: 100%;" type="submit">Apply Filters</button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>
@@ -96,16 +72,23 @@
             <#list specialtyMatches as trainer>
               <div class="trainer-card recommended-trainer">
                 <div class="trainer-image">
-                  <img class="card-img-top" src="/trainer/picture/${trainer.id}" alt="${trainer.name!'Trainer'} profile picture" style="width: 100%; max-height: 190px; object-fit: cover; border-radius: 0.75rem;" />
+                  <img class="card-img-top" src="/trainer/picture/${trainer.id}"
+                    alt="${trainer.name!'Trainer'} profile picture"
+                    style="width: 100%; max-height: 190px; object-fit: cover; border-radius: 0.75rem;" />
                 </div>
                 <div class="trainer-info">
-                  <span class="badge bg-success" style="margin-bottom: 0.75rem; display: inline-block;">Recommended</span>
+                  <span class="badge bg-success"
+                    style="margin-bottom: 0.75rem; display: inline-block;">Recommended</span>
                   <h3 class="trainer-name">${trainer.name!'Trainer'}</h3>
                   <p class="trainer-specialty">${trainer.specialties!'Specialized coaching'}</p>
                   <div class="trainer-rating">${trainer.yearsOfExperience!'0'} years experience</div>
-                  <div class="trainer-bio">${trainer.biography!'Certified coach ready to help you reach your goals.'}</div>
-                  <a class="btn btn-outline" style="text-decoration: none; color: gray;" href="/customer/trainers/${trainer.id}">View Profile</a>
-                  <a class="btn btn-outline" style="width: 100%; text-align: center; text-decoration: none; color: gray;" href="/customer/trainers/${trainer.id}/book">Book Session</a>
+                  <div class="trainer-bio">${trainer.biography!'Certified coach ready to help you reach your goals.'}
+                  </div>
+                  <a class="btn btn-outline" style="text-decoration: none; color: gray;"
+                    href="/customer/trainers/${trainer.id}">View Profile</a>
+                  <a class="btn btn-outline"
+                    style="width: 100%; text-align: center; text-decoration: none; color: gray;"
+                    href="/customer/trainers/${trainer.id}/book">Book Session</a>
                 </div>
               </div>
             </#list>
@@ -113,26 +96,41 @@
         </#if>
 
         <#if trainers?has_content>
-          <h3 style="font-weight: 700; margin-bottom: 1rem;">All Trainers</h3>
+          <#if activeSearch?has_content>
+            <h3 style="font-weight: 700; margin-bottom: 1rem;">Search results for "${activeSearch}"</h3>
+          <#else>
+            <h3 style="font-weight: 700; margin-bottom: 1rem;">All Trainers</h3>
+          </#if>
           <div class="grid grid-3">
             <#list trainers as trainer>
-              <div class="trainer-card<#if recommendedTrainer?? && recommendedTrainer.id == trainer.id> recommended-trainer</#if>">
+              <div
+                class="trainer-card<#if recommendedTrainer?? && recommendedTrainer.id == trainer.id> recommended-trainer</#if>">
                 <div class="trainer-image">
-                  <img class="card-img-top" src="/trainer/picture/${trainer.id}" alt="${trainer.name!'Trainer'} profile picture" style="width: 100%; max-height: 190px; object-fit: cover; border-radius: 0.75rem;" />
+                  <img class="card-img-top" src="/trainer/picture/${trainer.id}"
+                    alt="${trainer.name!'Trainer'} profile picture"
+                    style="width: 100%; max-height: 190px; object-fit: cover; border-radius: 0.75rem;" />
                 </div>
                 <div class="trainer-info">
                   <h3 class="trainer-name">${trainer.name!'Trainer'}</h3>
                   <p class="trainer-specialty">${trainer.specialties!'Specialized coaching'}</p>
                   <div class="trainer-rating">${trainer.yearsOfExperience!'0'} years experience</div>
-                  <div class="trainer-bio">${trainer.biography!'Certified coach ready to help you reach your goals.'}</div>
-                  <a class="btn btn-outline" style="text-decoration: none; color: gray;" href="/customer/trainers/${trainer.id}">View Profile</a>
-                  <a class="btn btn-outline" style="width: 100%; text-align: center; text-decoration: none; color: gray;" href="/customer/trainers/${trainer.id}/book">Book Session</a>
+                  <div class="trainer-bio">${trainer.biography!'Certified coach ready to help you reach your goals.'}
+                  </div>
+                  <a class="btn btn-outline" style="text-decoration: none; color: gray;"
+                    href="/customer/trainers/${trainer.id}">View Profile</a>
+                  <a class="btn btn-outline"
+                    style="width: 100%; text-align: center; text-decoration: none; color: gray;"
+                    href="/customer/trainers/${trainer.id}/book">Book Session</a>
                 </div>
               </div>
             </#list>
           </div>
-        <#else>
-          <p class="text-muted">No trainers are available right now. Please check back later.</p>
+          <#else>
+            <p class="text-muted">
+              <#if activeSearch?has_content>No trainers match your search for "${activeSearch}". Try another category or
+                service name.</#if>
+              <#if !activeSearch?has_content>No trainers are available right now. Please check back later.</#if>
+            </p>
         </#if>
       </div>
     </section>

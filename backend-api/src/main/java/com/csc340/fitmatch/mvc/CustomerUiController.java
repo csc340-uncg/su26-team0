@@ -3,6 +3,7 @@ package com.csc340.fitmatch.mvc;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,11 +95,16 @@ public class CustomerUiController {
     return "redirect:/customer/login";
   }
 
-
   @GetMapping("/browse")
   public String browse(Model model, HttpSession session) {
-    Long customerId = (Long) session.getAttribute("customerId");
+    return browse(model, session, null);
+  }
 
+  @GetMapping("/browse/search")
+  public String browse(Model model, HttpSession session,
+      @RequestParam(name = "query", required = false) String queryString) {
+
+    Long customerId = (Long) session.getAttribute("customerId");
     if (customerId == null) {
       return "redirect:/customer/login";
     }
@@ -112,7 +118,7 @@ public class CustomerUiController {
       customerGoals = customer.get().getFitnessGoals() != null ? customer.get().getFitnessGoals() : "";
     }
 
-    String normalizedGoals = customerGoals.toLowerCase();
+    String normalizedGoals = customerGoals.toLowerCase(Locale.ROOT);
     if (!normalizedGoals.isEmpty()) {
       for (String goal : normalizedGoals.split("[ ,;]+")) {
         if (!goal.isBlank()) {
@@ -125,11 +131,42 @@ public class CustomerUiController {
       }
     }
 
-    model.addAttribute("trainers", trainerService.getAllTrainers());
+    List<Trainer> displayedTrainers = trainerService.getAllTrainers();
+    String normalizedSearch = queryString == null ? "" : queryString.trim();
+    if (!normalizedSearch.isEmpty()) {
+      String searchQuery = normalizedSearch.toLowerCase(Locale.ROOT);
+      LinkedHashSet<Long> matchedTrainerIds = new LinkedHashSet<>();
+      List<Trainer> filteredTrainers = new ArrayList<>();
+
+      for (TrainingService service : trainingServiceService.getTrainingServicesByCategory(normalizedSearch)) {
+        Trainer trainer = service.getTrainer();
+        if (trainer != null && matchedTrainerIds.add(trainer.getId())) {
+          filteredTrainers.add(trainer);
+        }
+      }
+
+      for (TrainingService service : trainingServiceService.searchTrainingServicesByName(searchQuery)) {
+        Trainer trainer = service.getTrainer();
+        if (trainer != null && matchedTrainerIds.add(trainer.getId())) {
+          filteredTrainers.add(trainer);
+        }
+      }
+
+      for (Trainer trainer : trainerService.getAllTrainers()) {
+        String specialties = trainer.getSpecialties() == null ? "" : trainer.getSpecialties().toLowerCase(Locale.ROOT);
+        if (specialties.contains(searchQuery) && matchedTrainerIds.add(trainer.getId())) {
+          filteredTrainers.add(trainer);
+        }
+      }
+
+      displayedTrainers = filteredTrainers;
+    }
+
+    model.addAttribute("trainers", displayedTrainers);
     model.addAttribute("specialtyMatches", specialtyMatches);
     model.addAttribute("customerGoals", customerGoals);
+    model.addAttribute("activeSearch", normalizedSearch);
     return "customer/browse-trainers";
-
   }
 
   @GetMapping("/trainers/{trainerId}")
