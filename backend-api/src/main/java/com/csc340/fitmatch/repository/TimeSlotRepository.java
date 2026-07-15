@@ -1,5 +1,6 @@
 package com.csc340.fitmatch.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,8 +12,9 @@ import com.csc340.fitmatch.entity.Timeslot;
 public interface TimeSlotRepository extends JpaRepository<Timeslot, Long> {
   List<Timeslot> findByTrainerId(Long trainerId);
 
-  List<Timeslot> findAvailableByTrainerId(Long trainerId);
+  List<Timeslot> findByIsAvailableTrueAndTrainerId(Long trainerId);
 
+  List<Timeslot> findByIsAvailableTrueAndTrainerIdAndStartTimeAfter(Long trainerId, LocalDateTime startTime);
 
 
 }

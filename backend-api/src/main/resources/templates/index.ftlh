@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/styles.css">
+  <title>FitMatch - Personal Trainers Matched to Your Goals</title>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav>
+      <div class="navbar">
+        <a href="/" class="navbar-brand"><img src="/images/logo.png" width="120" height="92"></a>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="/customer/login" class="btn btn-outline">Login</a></li>
+          <li><a href="/customer/register" class="btn btn-outline">Get Started</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class=" hero">
+      <div class="hero-content">
+        <h1>Find Your Perfect Fitness Match</h1>
+        <p>Connect with certified trainers matched to your goals, constraints, and preferences. Your
+          personalized
+          fitness journey starts here.</p>
+        <div class="hero-buttons">
+          <a href="/customer/register" class="btn btn-light btn-large">I'm a Customer</a>
+          <a href="/trainer/register" class="btn btn-primary btn-large"
+            style="background-color: rgba(255,255,255,0.2); border: 2px solid white;">I'm a Trainer</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Trainers Grid -->
+    <section class="section">
+      <div class="container">
+        <h2 class="text-center" style="font-size: 2.5rem; margin-bottom: 3rem; font-weight: 700;">Expert Trainers
+        </h2>
+        <div class="grid grid-3">
+          <#if highlightedTrainers?has_content>
+            <#list highlightedTrainers as t>
+              <div class="trainer-card">
+                <div class="trainer-image">
+                  <img class="card-img-top" src="/trainer/picture/${t.id}" height="220px" />
+                </div>
+                <div class="trainer-info">
+                  <h3 class="trainer-name">${t.name}</h3>
+                  <p class="trainer-specialty">${t.specialties!"General Fitness"}</p>
+                  <div class="trainer-rating">${t.yearsOfExperience!""} years experience</div>
+                  <div class="trainer-bio">${t.biography!''}</div>
+                </div>
+              </div>
+            </#list>
+            <#else>
+              <div class="trainer-card">
+                <div class="trainer-info">
+                  <p class="text-muted">No trainers available right now.</p>
+                </div>
+              </div>
+          </#if>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- How It Works -->
+    <section class="section section-light" id="how-it-works">
+      <div class="container">
+        <h2 class="text-center" style="font-size: 2.5rem; margin-bottom: 3rem; font-weight: 700;">How It Works
+        </h2>
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="card-content">
+              <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">1</div>
+              <h3 style="font-weight: 700; margin-bottom: 1rem;">Create Your Profile</h3>
+              <p>Sign up and tell us about your fitness goals, constraints, and preferences. What are you
+                looking to
+                achieve?</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 1rem;">2</div>
+              <h3 style="font-weight: 700; margin-bottom: 1rem;">Browse Trainers</h3>
+              <p>View certified trainers matched to your needs. Check their experience, certifications, and
+                customer
+                reviews.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div style="font-size: 3rem; color: var(--success-color); margin-bottom: 1rem;">3</div>
+              <h3 style="font-weight: 700; margin-bottom: 1rem;">Book & Train</h3>
+              <p>Schedule sessions that fit your availability. Get personalized guidance from your matched
+                trainer.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section" style="background: var(--primary-color); color: white; text-align: center;">
+      <div class="container">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem; color: white;">Ready to Transform Your Fitness?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2rem;">Join hundreds of customers finding their perfect
+          fitness
+          match.</p>
+        <a href="/customer/register" class="btn btn-primary btn-large"
+          style="background-color: white; color: var(--primary-color);">Start Free Today</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 FitMatch. All rights reserved. Connecting customers with certified fitness professionals.
+      </p>
+    </footer>
+  </div>
+</body>
+
+</html>

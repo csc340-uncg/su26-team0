@@ -15,4 +15,6 @@ public interface TrainingServiceRepository extends JpaRepository<TrainingService
 
   List<TrainingService> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String nameQuery, String descriptionQuery);
 
+  List<TrainingService> findByStatusAndTrainerId(String status, Long trainerId);
+
 }

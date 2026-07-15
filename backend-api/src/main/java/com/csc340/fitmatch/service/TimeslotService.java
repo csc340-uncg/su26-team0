@@ -1,5 +1,6 @@
 package com.csc340.fitmatch.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class TimeslotService {
   }
 
   public List<Timeslot> getAvailableTimeslotsByTrainerId(Long trainerId) {
-    return timeSlotRepository.findAvailableByTrainerId(trainerId);
+    return timeSlotRepository.findByIsAvailableTrueAndTrainerIdAndStartTimeAfter(trainerId, LocalDateTime.now());
+    // return timeSlotRepository.findByIsAvailableTrueAndTrainerId(trainerId);
   }
 
   public Timeslot getTimeslotById(Long timeslotId) {

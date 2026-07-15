@@ -1,20 +1,30 @@
 package com.csc340.fitmatch.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.csc340.fitmatch.entity.Customer;
+import com.csc340.fitmatch.entity.TrainingSession;
 import com.csc340.fitmatch.repository.CustomerRepository;
+import com.csc340.fitmatch.repository.ReviewRepository;
+import com.csc340.fitmatch.repository.TrainingSessionRepository;
 
 @Service
 public class CustomerService {
 
   private final CustomerRepository customerRepository;
+  private final TrainingSessionRepository trainingSessionRepository;
+  private final ReviewRepository reviewRepository;
 
-  public CustomerService(CustomerRepository customerRepository) {
+  public CustomerService(CustomerRepository customerRepository,
+      TrainingSessionRepository trainingSessionRepository, ReviewRepository reviewRepository) {
     this.customerRepository = customerRepository;
+    this.trainingSessionRepository = trainingSessionRepository;
+    this.reviewRepository = reviewRepository;
   }
 
   public List<Customer> getAllCustomers() {
@@ -86,8 +96,25 @@ public class CustomerService {
     }
   }
 
+  public boolean hasDependentObjects(Long id) {
+    return !trainingSessionRepository.findByCustomerId(id).isEmpty()
+        || !reviewRepository.findByCustomerId(id).isEmpty();
+  }
+
   public void deleteCustomer(Long id) {
+    if (hasDependentObjects(id)) {
+      reviewRepository.deleteAll(reviewRepository.findByCustomerId(id));
+      trainingSessionRepository.deleteAll(trainingSessionRepository.findByCustomerId(id));
+    }
     customerRepository.deleteById(id);
+  }
+
+  public List<Customer> getCustomersByTrainerId(Long trainerId) {
+    return trainingSessionRepository.findByTrainingServiceTrainerId(trainerId).stream()
+        .map(TrainingSession::getCustomer)
+        .filter(Objects::nonNull)
+        .distinct()
+        .collect(Collectors.toList());
   }
 
   public Customer findByEmail(String email) {

@@ -56,4 +56,15 @@ public class TrainingServiceService {
     return trainingServiceRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(query, query);
   }
 
+  public void deactivateTrainingService(Long id) {
+    TrainingService trainingService = trainingServiceRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Training service not found with id: " + id));
+    trainingService.setStatus("inactive");
+    trainingServiceRepository.save(trainingService);
+  }
+
+  public List<TrainingService> getActiveTrainingServicesByTrainerId(Long trainerId) {
+    return trainingServiceRepository.findByStatusAndTrainerId("active", trainerId);
+  }
+
 }

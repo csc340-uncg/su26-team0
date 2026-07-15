@@ -7,6 +7,7 @@
 
 - local: http://localhost:8080
 - production: https://fit-match-pwsn.onrender.com
+- mvc: https://fit-match-mvc.onrender.com
 
 ## Table of Contents
 
