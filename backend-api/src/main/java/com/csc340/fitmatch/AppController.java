@@ -27,4 +27,9 @@ public class AppController {
     return "index";
   }
 
+  @GetMapping("/live")
+  public ResponseEntity<String> pulse() {
+    return ResponseEntity.ok("App is live");
+  }
+
 }
